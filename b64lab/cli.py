@@ -176,12 +176,7 @@ class B64LabApp:
 
         elif args.command == "decode":
             import base64
-            s = args.b64string
-            rem = len(s) % 4
-            if rem == 2:
-                s += "=="
-            elif rem == 3:
-                s += "="
+            s, _ = BitwiseEngine.normalize_padding(args.b64string)
             raw = base64.b64decode(s, validate=False)
             if args.utf16:
                 print(raw.decode("utf-16le", errors="ignore"))

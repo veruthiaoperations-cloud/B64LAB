@@ -178,4 +178,17 @@ class BitwiseEngine:
             
         return traces
 
+    @staticmethod
+    def normalize_padding(b64_str: str) -> Tuple[str, bool]:
+        """
+        Ensures string length is a multiple of 4 by appending '=' padding if needed.
+        Returns tuple of (padded_string, was_padding_added).
+        """
+        remainder = len(b64_str) % 4
+        if remainder == 2:
+            return b64_str + "==", True
+        elif remainder == 3:
+            return b64_str + "=", True
+        return b64_str, False
+
 BitwiseTrace = BitwiseChunkTrace

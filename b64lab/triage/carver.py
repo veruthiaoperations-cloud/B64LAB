@@ -12,6 +12,7 @@ from typing import List, Optional, Tuple, Dict, Any
 from ..core.entropy import ShannonEntropy, EntropyReport
 from ..core.signatures import SignatureDB, FileSignature
 from ..core.unpacker import RecursiveUnpacker, UnpackResult
+from ..core.bitwise import BitwiseEngine
 
 @dataclass
 class CarvedArtifact:
@@ -220,12 +221,5 @@ class ArtifactCarver:
 
     @staticmethod
     def _normalize_padding(b64_str: str) -> Tuple[str, bool]:
-        """Ensures length is a multiple of 4 by appending '=' padding if needed."""
-        remainder = len(b64_str) % 4
-        if remainder == 0:
-            return b64_str, True
-        elif remainder == 2:
-            return b64_str + "==", False
-        elif remainder == 3:
-            return b64_str + "=", False
-        return b64_str, False
+        """Ensures length is a multiple of 4 by delegating to BitwiseEngine."""
+        return BitwiseEngine.normalize_padding(b64_str)

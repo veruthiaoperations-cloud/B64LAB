@@ -98,3 +98,19 @@ Threat actors frequently strip trailing `=` characters:
 | **Base64URL** (Sec 5) | 6 bits | 64 | `-`, `_`, optional `=` | JSON Web Tokens (JWT), URL Query Strings |
 | **Base32** (Sec 6) | 5 bits | 32 | `A-Z`, `2-7`, `=` | TOTP Authenticator Keys, DNS Tunneling |
 | **Base16** (Sec 8) | 4 bits | 16 | `0-9`, `A-F` | Hex dumps, Hash signatures (MD5/SHA) |
+
+---
+
+## 5. Deprecation History & Security Evolution
+
+Understanding how Base64 standards evolved is essential for identifying legacy vulnerabilities and protocol quirks:
+
+### Deprecated Specifications vs. Active Standards
+* **RFC 1421 (1993) & RFC 1521 (1993) [OBSOLETE]:** Early Privacy Enhanced Mail (PEM) and MIME specifications. They allowed inconsistent line-break handling and permitted non-alphabet characters to be ignored silently—a behavior that modern malware still exploits to hide within whitespace.
+* **RFC 3548 (2003) [OBSOLETE]:** Replaced by **RFC 4648 (2006)**, which is the current, authoritative IETF standard governing all Base64, Base64URL, and Base32 implementations.
+* **RFC 8725 (2020) [ACTIVE BCP]:** *JSON Web Token Best Current Practices*. Specifically warns against accepting unvalidated Base64URL claims before signature verification, mitigating parser differentials and signature stripping.
+
+### PowerShell NT UTF-16LE: Windows 5.1 vs. Modern Core 7+
+A common point of confusion for security analysts:
+* In legacy **Windows PowerShell 5.1** (pre-installed on Windows 10/11), `powershell.exe -EncodedCommand` strictly requires UTF-16LE bytes.
+* In modern cross-platform **PowerShell Core 7+ (`pwsh`)**, the operating system (Linux/macOS) uses UTF-8 by default. However, **`pwsh -EncodedCommand` STILL requires UTF-16LE Base64** for backwards compatibility with Windows automation scripts. If an analyst encodes a Linux script as UTF-8, `pwsh -EncodedCommand` throws a syntax error.

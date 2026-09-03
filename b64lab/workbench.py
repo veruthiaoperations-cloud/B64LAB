@@ -56,11 +56,7 @@ class Workbench:
             elif choice == "4":
                 raw = input("\n  Enter Base64 to decode: ").strip()
                 try:
-                    rem = len(raw) % 4
-                    if rem == 2:
-                        raw += "=="
-                    elif rem == 3:
-                        raw += "="
+                    raw, _ = BitwiseEngine.normalize_padding(raw)
                     decoded = base64.b64decode(raw, validate=False)
                     print(f"\n  [+] Decoded ({len(decoded)} bytes):")
                     
@@ -127,10 +123,7 @@ class Workbench:
                     print("  [!] Invalid Data URI format. Expected 'data:<mime>;base64,<payload>'")
                 else:
                     claimed_mime = m.group("mime")
-                    b64_data = m.group("data")
-                    rem = len(b64_data) % 4
-                    if rem == 2: b64_data += "=="
-                    elif rem == 3: b64_data += "="
+                    b64_data, _ = BitwiseEngine.normalize_padding(m.group("data"))
                     try:
                         decoded = base64.b64decode(b64_data, validate=False)
                         sig = SignatureDB.identify(decoded)

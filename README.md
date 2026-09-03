@@ -78,18 +78,21 @@ People learn through different sensory and cognitive pathways. B64Lab adapts to 
 
 ---
 
-## 🚀 Quickstart
+## 🚀 Quickstart & Setup
 
-Clone the repository and run—no installation or setup required:
+Clone the repository and run—no installation, compilers, or third-party packages required:
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/B64Lab.git
-cd B64Lab
+git clone https://github.com/veruthiaoperations-cloud/B64LAB.git
+cd B64LAB
 
 # Launch interactive terminal environment
 python b64lab.py
 ```
+
+> 📖 **Need OS-specific guidance, air-gapped jumpbox instructions, or Docker one-liners?**  
+> See the complete [**SETUP.md**](SETUP.md) deployment guide.
 
 You can also run B64Lab directly as a Python module:
 ```bash
