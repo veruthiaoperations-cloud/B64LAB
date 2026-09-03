@@ -26,32 +26,26 @@ $$\text{LCM}(8 \text{ bits}, 6 \text{ bits}) = 24 \text{ bits}$$
 Three 8-bit bytes ($3 \times 8 = 24$ bits) map cleanly into four 6-bit chunks ($4 \times 6 = 24$ bits):
 
 ```mermaid
-graph TD
-    subgraph "Input: 3 Bytes (24 Bits Total)"
-        B1["Byte 1: 'M' (0x4D)<br>0 1 0 0 1 1 0 1"]
-        B2["Byte 2: 'a' (0x61)<br>0 1 1 0 0 0 0 1"]
-        B3["Byte 3: 'n' (0x6E)<br>0 1 1 0 1 1 1 0"]
+flowchart TD
+    subgraph Step1["Step 1: Raw Input Octets (3 Bytes = 24 Bits)"]
+        direction LR
+        B1["'M' (0x4D) = 01001101"]
+        B2["'a' (0x61) = 01100001"]
+        B3["'n' (0x6E) = 01101110"]
     end
 
-    subgraph "24-Bit Concatenated Shift Buffer"
-        BUF["01001101 01100001 01101110"]
+    BUF["Combined 24-Bit Shift Buffer: 01001101 01100001 01101110"]
+
+    subgraph Step2["Step 2: Sliced Sextets (4 Chunks = 6 Bits Each)"]
+        direction LR
+        S1["Sextet 1: 010011 (19) -> 'T'"]
+        S2["Sextet 2: 010110 (22) -> 'W'"]
+        S3["Sextet 3: 000101 (5)  -> 'F'"]
+        S4["Sextet 4: 101110 (46) -> 'u'"]
     end
 
-    subgraph "Output: 4 Sextets (6 Bits Each)"
-        S1["Sextet 1: 010011<br>Dec: 19 -> 'T'"]
-        S2["Sextet 2: 010110<br>Dec: 22 -> 'W'"]
-        S3["Sextet 3: 000101<br>Dec: 5  -> 'F'"]
-        S4["Sextet 4: 101110<br>Dec: 46 -> 'u'"]
-    end
-
-    B1 --> BUF
-    B2 --> BUF
-    B3 --> BUF
-
-    BUF --> S1
-    BUF --> S2
-    BUF --> S3
-    BUF --> S4
+    Step1 --> BUF
+    BUF --> Step2
 ```
 
 ### CPU-Level Bit-Shift Implementation

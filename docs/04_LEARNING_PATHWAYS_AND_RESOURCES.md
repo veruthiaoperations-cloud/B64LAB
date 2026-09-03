@@ -1,73 +1,59 @@
 # Learning Pathways & Curated Cybersecurity Resources
 
-> **The Multi-Modal Study Roadmap: Videos, RFCs, Tool References, and Certification Alignment**  
+> **Verified Reputable Sources: Canonical RFCs, Industry Standards & Video Lectures**  
 > *Target Audience: Students, Self-Taught Hackers, SOC Analysts, and Certification Candidates*
 
 ---
 
-## 1. The Multi-Modal Study Roadmap
+## 1. Authoritative Industry Standards & Specifications
 
-To maximize retention, do not just read this documentation or just run terminal commands. Follow this multi-modal study loop:
+Always refer to the official specifications used by security engineers worldwide:
 
-```mermaid
-flowchart TD
-    S1["Phase 1: Conceptual Foundation<br>• Read docs/01_BITWISE_ARCHITECTURE.md<br>• Watch Computerphile Base64 video"] --> S2["Phase 2: Kinesthetic Terminal Tracing<br>• Run: python b64lab.py trace 'Man'<br>• Run: python b64lab.py trace 'CustomWord'"]
-    S2 --> S3["Phase 3: Hands-On Challenge Arena<br>• Launch CTF Menu: python b64lab.py<br>• Solve Levels 1 to 4 (Basic, Padding, PowerShell, Log Carving)"]
-    S3 --> S4["Phase 4: Adversary & Forensic Depth<br>• Read docs/02_MALWARE_OBFUSCATION.md<br>• Read docs/03_SOC_TRIAGE_FORENSICS.md<br>• Watch John Hammond PowerShell Deobfuscation"]
-    S4 --> S5["Phase 5: Advanced Operations<br>• Solve CTF Levels 5 to 8 (Magic Bytes, Droppers, Custom Ciphers, C2)<br>• Triage samples/sample_web_access.log in Blue Lane"]
-```
+* **[IETF RFC 4648 - The Base16, Base32, and Base64 Data Encodings](https://datatracker.ietf.org/doc/html/rfc4648)**
+  * *The definitive IETF specification:* Defines the 64-char standard alphabet (Section 4), the URL-safe alphabet (Section 5), Base32 (Section 6), and padding rules (Section 4.3).
+* **[MDN Web Docs: Base64 Glossary & Technical Guide](https://developer.mozilla.org/en-US/docs/Glossary/Base64)**
+  * *Mozilla Developer Network:* Clear explanations of binary-to-text conversion, character sets, and DOM APIs (`btoa()` and `atob()`).
+* **[IETF RFC 2045 - Multipurpose Internet Mail Extensions (MIME)](https://datatracker.ietf.org/doc/html/rfc2045)**
+  * *Historical origin:* Section 6.8 details why Base64 was standardized to transport attachments over 7-bit SMTP email gateways.
+* **[Cloudflare Learning Center: What is a JSON Web Token (JWT)?](https://www.cloudflare.com/learning/access-management/what-is-json-web-token/)**
+  * *Modern Web Security:* Explains how JWTs serialize authentication tokens into three Base64URL-encoded segments.
+* **[OWASP Foundation: REST Security Cheat Sheet](https://cheatsheetseries.owasp.org/)**
+  * *Application Security:* Guidance on validating and sanitizing encoded payloads before decoding to avoid deserialization exploits.
 
 ---
 
-## 2. Curated High-Yield Video Lectures
+## 2. Curated High-Yield Video Lectures (Search Paths)
 
-For auditory and visual learners, these selected external videos provide incredible depth and directly reinforce B64Lab modules:
+Direct video IDs often break or get removed over time. Use these direct canonical search queries to access the verified lectures from trusted educators:
 
 ### 1. Computer Science & Bitwise Fundamentals
-* **[Computerphile: Base64 (and why 64?)](https://www.youtube.com/watch?v=g_aC546S2Go)**
-  * *Why watch:* Dr. Mike Pound visually demonstrates on paper how 3 bytes of 8 bits map into 4 characters of 6 bits, and why padding exists.
-  * *Directly maps to:* B64Lab Module 1 & `docs/01_BITWISE_ARCHITECTURE.md`.
+* **[Computerphile: "Base64" Channel Search](https://www.youtube.com/results?search_query=Computerphile+Base64)**
+  * *Recommended Video:* *"Base64 (and why 64?)"* featuring Dr. Mike Pound from the University of Nottingham.
+  * *Core Concept:* Visual paper breakdown of 3 bytes of 8 bits mapping into 4 characters of 6 bits.
+* **[Ben Eater: Binary, Hexadecimal, and Data Representations](https://www.youtube.com/results?search_query=Ben+Eater+Binary)**
+  * *Recommended Content:* High-yield visual computer architecture series explaining how bits, registers, and binary logic work from first principles.
 
 ### 2. Real-World Malware De-Obfuscation
-* **[John Hammond: Analyzing Obfuscated PowerShell Droppers](https://www.youtube.com/watch?v=0kF5lX3e1kU)**
-  * *Why watch:* Demonstrates how real-world malware uses `-EncodedCommand` and layered compression to hide payloads from incident responders.
-  * *Directly maps to:* B64Lab Module 3 & `docs/02_MALWARE_OBFUSCATION.md`.
-
-### 3. Binary Data, Encodings vs. Encryption
-* **[LiveOverflow: Encoding vs Encryption (Why Base64 is Not a Cipher)](https://www.youtube.com/watch?v=s0bHjL4p_f8)**
-  * *Why watch:* Clarifies the classic junior interview trap: encoding transforms data representation for transport; it provides zero confidentiality!
-  * *Directly maps to:* B64Lab Glossary & `b64lab.academy.glossary`.
+* **[John Hammond: "PowerShell EncodedCommand" Search](https://www.youtube.com/results?search_query=John+Hammond+PowerShell+EncodedCommand)**
+  * *Recommended Content:* Live incident walkthroughs analyzing obfuscated `-EncodedCommand` droppers, UTF-16LE decoding, and fileless malware.
+* **[LiveOverflow: "Encoding vs Encryption" Search](https://www.youtube.com/results?search_query=LiveOverflow+Encoding+vs+Encryption)**
+  * *Recommended Content:* Clarifies why Base64 is an encoding format rather than encryption, and how CTF challenges use it.
 
 ---
 
-## 3. Official Standards & RFC Specifications
+## 3. Classic Industry Tool References
 
-Senior engineers and forensic specialists read the raw standards. Bookmark these canonical RFCs:
-
-* **[RFC 4648 - The Base16, Base32, and Base64 Data Encodings](https://datatracker.ietf.org/doc/html/rfc4648)**
-  * *The authoritative standard:* Defines the 64-char alphabet, URL-safe variant (Section 5), Base32 (Section 6), and padding rules (Section 4.3).
-* **[RFC 2045 - Multipurpose Internet Mail Extensions (MIME) Part One](https://datatracker.ietf.org/doc/html/rfc2045)**
-  * *Origin of Base64 in email:* Section 6.8 specifies Content-Transfer-Encoding: base64 for email attachments.
-* **[RFC 7519 - JSON Web Token (JWT)](https://datatracker.ietf.org/doc/html/rfc7519)**
-  * *Modern Web Security:* Explains how JWT headers and claims are serialized using Base64URL.
+* **[GCHQ CyberChef](https://gchq.github.io/CyberChef/):** The legendary web-based decoding and forensic pipeline created by the UK Government Communications Headquarters.
+* **[Didier Stevens' Security Blog: base64dump.py](https://blog.didierstevens.com/):** Technical articles by malware researcher Didier Stevens on carving and extracting Base64 from malicious documents and PCAPs.
+* **[SANS Internet Storm Center](https://isc.sans.edu/):** Real-time threat diaries detailing active malware campaigns utilizing encoded commands.
 
 ---
 
-## 4. Certification Alignment Guide
+## 4. Certification Alignment Roadmap
 
-B64Lab was explicitly engineered to cover key syllabus objectives across leading cybersecurity certifications:
-
-| Certification | Specific Exam Objective | How B64Lab Prepares You |
+| Certification | Exam Objective | How B64Lab Prepares You |
 | :--- | :--- | :--- |
-| **CompTIA Security+ (SY0-701)** | 2.4: Cryptographic concepts (encoding vs hashing vs encryption) | Module 1 explains why Base64 provides zero confidentiality. |
-| **CompTIA CySA+ (CS0-003)** | 1.3: Analyze potential malicious activity from system & network logs | Blue Lane carves Base64 from noisy Apache & Sysmon logs. |
-| **Blue Team Level 1 (BTL1)** | Digital Forensics & SIEM analysis | Shannon Entropy scoring, Magic Byte detection (`MZ`, `ELF`). |
-| **OSCP / PNPT** | Evasion & Living-off-the-Land execution | Red Lane crafts valid UTF-16LE PowerShell droppers & stagers. |
-
----
-
-## 5. Classic Industry Tool References
-
-* **[GCHQ CyberChef](https://gchq.github.io/CyberChef/):** The premier browser-based decoding workbench created by the UK Government Communications Headquarters.
-* **[Didier Stevens' base64dump.py](https://blog.didierstevens.com/2020/07/03/update-base64dump-py-version-0-0-20/):** The legendary CLI forensic carving script by malware researcher Didier Stevens.
-* **[SANS Internet Storm Center: PowerShell Obfuscation Analysis](https://isc.sans.edu/):** Regular threat diary entries covering malicious PowerShell encoding patterns.
+| **CompTIA Security+ (SY0-701)** | 2.4: Cryptographic concepts | Module 1 explains encoding vs hashing vs encryption. |
+| **CompTIA CySA+ (CS0-003)** | 1.3: Threat hunting & log analysis | Blue Lane carves Base64 from noisy web & Sysmon logs. |
+| **Blue Team Level 1 (BTL1)** | Digital Forensics & SIEM triage | Shannon Entropy scoring, Magic Byte detection (`MZ`, `ELF`). |
+| **OSCP / PNPT** | Evasion & Living-off-the-Land | Red Lane crafts valid UTF-16LE PowerShell droppers. |

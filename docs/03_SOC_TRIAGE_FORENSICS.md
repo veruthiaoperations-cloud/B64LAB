@@ -19,13 +19,13 @@ Entropy Distribution Spectrum (Bits / Symbol)
 ```
 
 ```mermaid
-graph LR
-    A["Raw Input Data"] --> B["Calculate Frequency Distribution P(x)"]
-    B --> C["Compute Shannon Entropy H(X)"]
-    C --> D{Evaluate Score}
-    D -->|H < 4.8| E["Plaintext / Code<br>LOW THREAT"]
-    D -->|5.1 <= H <= 5.95| F["Base64 / Base32 Blob<br>SUSPICIOUS (Carve Target)"]
-    D -->|H > 6.2| G["Compressed / Ciphertext<br>HIGH THREAT"]
+flowchart TD
+    A["Raw Log Stream / Network Packet"] --> B["Compute Shannon Entropy H(X)"]
+    B --> C{Evaluate Entropy Threshold}
+    C -->|H < 4.80| D["Low Randomness<br>Plaintext English, Code, JSON"]
+    C -->|5.10 <= H <= 5.95| E["SUSPICIOUS ANOMALY<br>High Probability Base64/Base32 Payload"]
+    C -->|H > 6.20| F["Critical Randomness<br>Cryptographic Ciphertext, Packed Binary"]
+    E --> G["Forensic Triage Engine<br>Decode + Magic Bytes + Hash Carving"]
 ```
 
 ### Why Base64 Clusters Between 5.10 and 5.95

@@ -240,14 +240,16 @@ B64Lab features a **dynamic HMAC-SHA256 anti-cheat challenge engine**. **Zero st
 
 ---
 
-## 📚 Comprehensive Documentation Suite
+## 📚 Comprehensive Documentation Suite & Educational Lab
 
-Explore the deep-dive architectural specifications, threat analyses, and study roadmaps in `docs/`:
-* [**The Mission & The Gap** (`docs/00_WHY_B64LAB_EXISTS.md`)](docs/00_WHY_B64LAB_EXISTS.md) — The student origin story, competitive landscape analysis (CyberChef, base64dump, Ciphey), and multi-modal pedagogy.
-* [**Module 1: Low-Level Bitwise Architecture** (`docs/01_BITWISE_ARCHITECTURE.md`)](docs/01_BITWISE_ARCHITECTURE.md) — 24-bit shift buffers, octet-to-sextet regrouping, CPU bit-shifts, and mathematical padding proofs.
-* [**Module 2: Adversary Tradecraft & Malware Obfuscation** (`docs/02_MALWARE_OBFUSCATION.md`)](docs/02_MALWARE_OBFUSCATION.md) — PowerShell UTF-16LE vs. UTF-8 sequence diagrams, multi-stage dropper pipelines, and APT custom alphabets.
-* [**Module 3: Defensive Triage & Forensic Carving** (`docs/03_SOC_TRIAGE_FORENSICS.md`)](docs/03_SOC_TRIAGE_FORENSICS.md) — Shannon Entropy mathematical formulas, magic byte carving catalogs, and SIEM/EDR log hunting protocols.
-* [**Module 4: Study Pathways & Curated Resources** (`docs/04_LEARNING_PATHWAYS_AND_RESOURCES.md`)](docs/04_LEARNING_PATHWAYS_AND_RESOURCES.md) — Curated video lectures (Computerphile, John Hammond, LiveOverflow), canonical RFC standards, and certification alignment roadmaps (Security+, CySA+, BTL1, OSCP).
+Explore the complete visual curriculum, cheat sheets, and architectural guides in `docs/`:
+* 🧭 [**Start Here: The 0-to-100 Curriculum Roadmap** (`docs/00_START_HERE_CURRICULUM.md`)](docs/00_START_HERE_CURRICULUM.md) — Ground-floor guide covering bits, bytes, and step-by-step guidance on how to maximize your learning.
+* 📊 [**Complete Schema Cheat Sheet & Visualizer** (`docs/05_BASE64_CHEAT_SHEET_AND_VISUALIZER.md`)](docs/05_BASE64_CHEAT_SHEET_AND_VISUALIZER.md) — The full 64-character lookup grid (0–63), worked `"Hello"` step-by-step encoding/decoding, and padding visualizer.
+* 🎯 [**The Mission & The Gap** (`docs/00_WHY_B64LAB_EXISTS.md`)](docs/00_WHY_B64LAB_EXISTS.md) — The student origin story, competitive landscape analysis (CyberChef, base64dump, Ciphey), and multi-modal pedagogy.
+* ⚙️ [**Module 1: Low-Level Bitwise Architecture** (`docs/01_BITWISE_ARCHITECTURE.md`)](docs/01_BITWISE_ARCHITECTURE.md) — 24-bit shift buffers, octet-to-sextet regrouping, CPU bit-shifts, and mathematical padding proofs.
+* 🥷 [**Module 2: Adversary Tradecraft & Malware Obfuscation** (`docs/02_MALWARE_OBFUSCATION.md`)](docs/02_MALWARE_OBFUSCATION.md) — PowerShell UTF-16LE vs. UTF-8 sequence diagrams, multi-stage dropper pipelines, and APT custom alphabets.
+* 🛡️ [**Module 3: Defensive Triage & Forensic Carving** (`docs/03_SOC_TRIAGE_FORENSICS.md`)](docs/03_SOC_TRIAGE_FORENSICS.md) — Shannon Entropy mathematical formulas, magic byte carving catalogs, and SIEM/EDR log hunting protocols.
+* 🎓 [**Module 4: Study Pathways & Curated Resources** (`docs/04_LEARNING_PATHWAYS_AND_RESOURCES.md`)](docs/04_LEARNING_PATHWAYS_AND_RESOURCES.md) — Curated video lectures (Computerphile, John Hammond, LiveOverflow), canonical RFC standards, and certification alignment roadmaps (Security+, CySA+, BTL1, OSCP).
 
 ---
 
