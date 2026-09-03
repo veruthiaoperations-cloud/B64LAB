@@ -283,10 +283,11 @@ All tests pass out of the box with zero external dependencies.
 
 ---
 
-## 📜 License & Governance
+## 📜 License, Governance & Legal
 
 This project is licensed under the [MIT License](LICENSE) — Copyright (c) 2026 **Veruthia Consulting LLC**.
 
+* ⚖️ **Legal Disclaimer & Limitation of Liability:** See [DISCLAIMER.md](DISCLAIMER.md)
 * 🛡️ **Security Policy & Vulnerability Reporting:** See [SECURITY.md](SECURITY.md)
 * 🏛️ **Project Governance & Contribution Guidelines:** See [CONTRIBUTING.md](CONTRIBUTING.md)
 * 📖 **Installation & Air-Gapped Setup:** See [SETUP.md](SETUP.md)
