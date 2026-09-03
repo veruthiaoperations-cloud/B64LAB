@@ -55,7 +55,13 @@ class ArtifactCarver:
         """
         artifact_counter = 1
         for line_num, line in enumerate(line_iterable, start=1):
-            matches = cls.B64_REGEX.finditer(line)
+            matches = list(cls.B64_REGEX.finditer(line))
+            if not matches:
+                continue
+
+            # Check for Data URI context once per line (only if 'data:' is present)
+            data_uri_match = cls.DATA_URI_REGEX.search(line) if "data:" in line else None
+
             for m in matches:
                 candidate = m.group(0)
                 if len(candidate) < min_length:
@@ -78,7 +84,6 @@ class ArtifactCarver:
                 is_txt, txt_preview = SignatureDB.is_text(decoded)
 
                 # Check for Data URI context on this line
-                data_uri_match = cls.DATA_URI_REGEX.search(line)
                 claimed_mime = data_uri_match.group("mime") if data_uri_match and candidate in data_uri_match.group("data") else None
 
                 # Threat assessment

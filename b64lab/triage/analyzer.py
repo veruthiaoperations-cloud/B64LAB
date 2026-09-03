@@ -123,8 +123,14 @@ class TriageAnalyzer:
         out_dir = os.path.join(os.getcwd(), "carved_artifacts")
         os.makedirs(out_dir, exist_ok=True)
 
-        ext = art.signature.extension if art.signature else ("ps1" if art.is_powershell else "bin")
-        bin_filename = f"artifact_{art.artifact_id}_{art.sha256[:8]}.{ext}"
+        raw_ext = art.signature.extension if art.signature else ("ps1" if art.is_powershell else "bin")
+        # Defang executable extensions to prevent instant AV/EDR quarantine on analyst workstations
+        if raw_ext.lower() in ("exe", "elf", "macho", "dll", "so", "dylib", "jar", "bin"):
+            safe_ext = f"{raw_ext}.defanged" if raw_ext.lower() in ("exe", "elf", "macho", "dll") else raw_ext
+        else:
+            safe_ext = raw_ext
+
+        bin_filename = f"artifact_{art.artifact_id}_{art.sha256[:8]}.{safe_ext}"
         bin_path = os.path.join(out_dir, bin_filename)
 
         with open(bin_path, "wb") as f:

@@ -182,6 +182,17 @@ class TestUnpacker(unittest.TestCase):
         self.assertTrue(result.is_nested)
         self.assertIn(inner_payload, result.final_payload.decode("utf-8"))
 
+    def test_zlib_nested_unpack(self):
+        inner_payload = "Get-Service | Where-Object Status -eq 'Running'"
+        dropper = DropperForge.build_zlib_dropper(inner_payload)
+        result = RecursiveUnpacker.unpack(dropper["b64_payload"])
+        self.assertTrue(result.is_nested)
+        self.assertIn(inner_payload, result.final_payload.decode("utf-8"))
+
+    def test_unpacker_decompression_safety_limit(self):
+        self.assertTrue(hasattr(RecursiveUnpacker, "MAX_DECOMPRESSED_SIZE"))
+        self.assertGreaterEqual(RecursiveUnpacker.MAX_DECOMPRESSED_SIZE, 1024 * 1024)
+
 
 class TestArtifactCarver(unittest.TestCase):
     """Verifies carving Base64 from noisy unstructured logs and exporting to CSV/JSON/SQLite."""
@@ -313,6 +324,38 @@ class TestDynamicAntiCheatCTF(unittest.TestCase):
         c = CTFAntiCheat.synthesize_challenge(8, self.salt)
         recovered = base64.b64decode(c["payload"]).decode()
         self.assertEqual(recovered, c["flag"])
+
+    def test_ctf_state_file_resolution(self):
+        path = CTFAntiCheat.get_state_file()
+        self.assertTrue(isinstance(path, str))
+        self.assertTrue(path.endswith(".b64lab_profile.json"))
+
+
+class TestCLIModule(unittest.TestCase):
+    """Verifies CLI argument execution and error boundaries."""
+
+    def test_cli_decode_malformed_graceful(self):
+        import subprocess
+        result = subprocess.run(
+            [sys.executable, "-m", "b64lab", "decode", "ABCDE"],
+            capture_output=True,
+            text=True,
+            cwd=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        )
+        self.assertEqual(result.returncode, 0)
+        self.assertIn("[!] Error: Unable to decode Base64 payload", result.stdout)
+
+    def test_cli_encode(self):
+        import subprocess
+        result = subprocess.run(
+            [sys.executable, "-m", "b64lab", "encode", "TestPayload123"],
+            capture_output=True,
+            text=True,
+            cwd=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        )
+        self.assertEqual(result.returncode, 0)
+        self.assertIn("VGVzdFBheWxvYWQxMjM=", result.stdout.strip())
+
 
 if __name__ == "__main__":
     unittest.main()

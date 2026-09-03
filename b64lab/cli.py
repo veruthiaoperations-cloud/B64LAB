@@ -177,17 +177,20 @@ class B64LabApp:
         elif args.command == "decode":
             import base64
             s, _ = BitwiseEngine.normalize_padding(args.b64string)
-            raw = base64.b64decode(s, validate=False)
-            if args.utf16:
-                print(raw.decode("utf-16le", errors="ignore"))
-            else:
-                try:
-                    print(raw.decode("utf-8"))
-                except UnicodeDecodeError:
-                    print(raw)
+            try:
+                raw = base64.b64decode(s, validate=False)
+                if args.utf16:
+                    print(raw.decode("utf-16le", errors="ignore"))
+                else:
+                    try:
+                        print(raw.decode("utf-8"))
+                    except UnicodeDecodeError:
+                        print(raw)
+            except Exception as e:
+                print(f"[!] Error: Unable to decode Base64 payload: {e}")
 
         elif args.command == "trace":
-            BitwiseLesson._walkthrough_example(args.text)
+            BitwiseLesson._walkthrough_example(args.text, pause=False)
 
         elif args.command == "carve":
             if args.filepath == "-":

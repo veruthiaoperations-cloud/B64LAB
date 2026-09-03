@@ -58,7 +58,7 @@ class BitwiseLesson:
                 cls._explain_padding()
 
     @classmethod
-    def _walkthrough_example(cls, text: str) -> None:
+    def _walkthrough_example(cls, text: str, pause: bool = True) -> None:
         """Renders an aligned visual bitwise trace for any string."""
         raw_bytes = text.encode("utf-8")
         traces = BitwiseEngine.trace_encode(raw_bytes)
@@ -103,7 +103,8 @@ class BitwiseLesson:
 
         final_b64 = BitwiseEngine.encode(raw_bytes)
         print(f"\n  {palette.success}{ANSI.BOLD}✓ Final Result: \"{final_b64}\"{r}")
-        UIComponents.pause()
+        if pause:
+            UIComponents.pause()
 
     @classmethod
     def _explain_padding(cls) -> None:

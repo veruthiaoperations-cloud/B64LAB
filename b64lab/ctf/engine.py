@@ -115,14 +115,23 @@ CHALLENGE_DEFINITIONS = [
 class CTFAntiCheat:
     """Cryptographic Flag & Payload Synthesis Engine."""
 
-    STATE_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".b64lab_profile.json")
+    STATE_FILE = os.path.join(os.path.expanduser("~"), ".b64lab_profile.json")
+
+    @classmethod
+    def get_state_file(cls) -> str:
+        """Returns the active state file path, checking user home first with legacy fallback."""
+        local_legacy = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".b64lab_profile.json")
+        if os.path.exists(local_legacy) and not os.path.exists(cls.STATE_FILE):
+            return local_legacy
+        return cls.STATE_FILE
 
     @classmethod
     def get_or_create_seed(cls) -> str:
         """Retrieves or creates a cryptographically random machine/user salt."""
-        if os.path.exists(cls.STATE_FILE):
+        state_file = cls.get_state_file()
+        if os.path.exists(state_file):
             try:
-                with open(cls.STATE_FILE, "r") as f:
+                with open(state_file, "r") as f:
                     data = json.load(f)
                     if "salt" in data and len(data["salt"]) == 32:
                         return data["salt"]
@@ -136,17 +145,25 @@ class CTFAntiCheat:
 
     @classmethod
     def _save_profile_data(cls, data: Dict[str, Any]) -> None:
+        state_file = cls.get_state_file()
         try:
-            with open(cls.STATE_FILE, "w") as f:
+            with open(state_file, "w") as f:
                 json.dump(data, f, indent=2)
         except Exception:
-            pass
+            # Fallback to local directory if home directory is not writable
+            try:
+                local_fallback = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".b64lab_profile.json")
+                with open(local_fallback, "w") as f:
+                    json.dump(data, f, indent=2)
+            except Exception:
+                pass
 
     @classmethod
     def _load_profile_data(cls) -> Dict[str, Any]:
-        if os.path.exists(cls.STATE_FILE):
+        state_file = cls.get_state_file()
+        if os.path.exists(state_file):
             try:
-                with open(cls.STATE_FILE, "r") as f:
+                with open(state_file, "r") as f:
                     return json.load(f)
             except Exception:
                 pass

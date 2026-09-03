@@ -78,6 +78,14 @@ class Terminal:
         if cls._initialized:
             return
 
+        # Ensure cross-platform UTF-8 terminal output on Windows
+        if hasattr(sys.stdout, "reconfigure"):
+            try:
+                sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+                sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+            except Exception:
+                pass
+
         if sys.platform == "win32":
             try:
                 import ctypes

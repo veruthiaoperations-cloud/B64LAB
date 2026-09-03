@@ -44,6 +44,7 @@ class RecursiveUnpacker:
     """
 
     MAX_RECURSION_DEPTH = 10
+    MAX_DECOMPRESSED_SIZE = 25 * 1024 * 1024  # 25 MB safety ceiling for archive decompression
 
     @classmethod
     def unpack(cls, initial_data: Union[str, bytes]) -> UnpackResult:
@@ -87,9 +88,12 @@ class RecursiveUnpacker:
             # 1. Check if payload is GZIP (1F 8B 08)
             if len(current_data) > 10 and current_data[:3] == b"\x1f\x8b\x08":
                 try:
-                    decompressed = gzip.decompress(current_data)
+                    d_obj = zlib.decompressobj(16 + zlib.MAX_WBITS)
+                    decompressed = d_obj.decompress(current_data, max_length=cls.MAX_DECOMPRESSED_SIZE)
+                    capped = bool(d_obj.unconsumed_tail or not d_obj.eof)
                     ent_b = ShannonEntropy.calculate(current_data)
                     ent_a = ShannonEntropy.calculate(decompressed)
+                    note = "Decompressed GZIP archive stream (capped at 25MB safety ceiling)." if capped else "Decompressed GZIP archive stream."
                     result.layers.append(
                         UnpackLayer(
                             layer_number=depth,
@@ -99,7 +103,7 @@ class RecursiveUnpacker:
                             entropy_before=ent_b,
                             entropy_after=ent_a,
                             signature_detected="GZIP",
-                            detail="Decompressed GZIP archive stream."
+                            detail=note
                         )
                     )
                     current_data = decompressed
@@ -111,9 +115,12 @@ class RecursiveUnpacker:
             # 2. Check if payload is ZLIB / Deflate (78 9C, 78 01, 78 DA)
             if len(current_data) > 4 and current_data[:2] in [b"\x78\x9c", b"\x78\x01", b"\x78\xda", b"\x78\x5e"]:
                 try:
-                    decompressed = zlib.decompress(current_data)
+                    d_obj = zlib.decompressobj(zlib.MAX_WBITS)
+                    decompressed = d_obj.decompress(current_data, max_length=cls.MAX_DECOMPRESSED_SIZE)
+                    capped = bool(d_obj.unconsumed_tail or not d_obj.eof)
                     ent_b = ShannonEntropy.calculate(current_data)
                     ent_a = ShannonEntropy.calculate(decompressed)
+                    note = "Decompressed ZLIB/Deflate stream (capped at 25MB safety ceiling)." if capped else "Decompressed ZLIB/Deflate stream."
                     result.layers.append(
                         UnpackLayer(
                             layer_number=depth,
@@ -123,7 +130,7 @@ class RecursiveUnpacker:
                             entropy_before=ent_b,
                             entropy_after=ent_a,
                             signature_detected="ZLIB",
-                            detail="Decompressed ZLIB/Deflate stream."
+                            detail=note
                         )
                     )
                     current_data = decompressed
