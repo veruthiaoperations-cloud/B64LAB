@@ -7,7 +7,7 @@ name = "b64lab"
 version = "1.0.0"
 description = "Zero-Dependency Cybersecurity Base64 Academy, Simulator & Triage Engine"
 readme = "README.md"
-authors = [{ name = "B64Lab Contributors" }]
+authors = [{ name = "Veruthia Consulting LLC", email = "veruthiaoperations-cloud@users.noreply.github.com" }]
 license = { text = "MIT" }
 classifiers = [
     "Programming Language :: Python :: 3",

@@ -1,5 +1,7 @@
 # B64Lab: The Cyber Base64 Simulator, Academy & Triage Engine
 
+> *An authoritative open-source security engineering & forensic simulation project by **Veruthia Consulting LLC**.*
+
 ```
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  ██████╗  ██████╗ ██╗  ██╗██╗      █████╗ ██████╗                            ║
@@ -281,6 +283,10 @@ All tests pass out of the box with zero external dependencies.
 
 ---
 
-## 📜 License
+## 📜 License & Governance
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the [MIT License](LICENSE) — Copyright (c) 2026 **Veruthia Consulting LLC**.
+
+* 🛡️ **Security Policy & Vulnerability Reporting:** See [SECURITY.md](SECURITY.md)
+* 🏛️ **Project Governance & Contribution Guidelines:** See [CONTRIBUTING.md](CONTRIBUTING.md)
+* 📖 **Installation & Air-Gapped Setup:** See [SETUP.md](SETUP.md)
