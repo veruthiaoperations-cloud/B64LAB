@@ -1,0 +1,20 @@
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local user dynamic profile & CTF state
+.b64lab_profile.json
+.b64lab_progress.json
+.b64lab_ctf.json
+
+# Local databases & carved artifacts exports
+*.db
+*.sqlite
+*.sqlite3
+carved_artifacts/
+
+# Virtual environments
+.venv/
+venv/
+env/

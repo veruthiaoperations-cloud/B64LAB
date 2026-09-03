@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "b64lab"
+version = "1.0.0"
+description = "Zero-Dependency Cybersecurity Base64 Academy, Simulator & Triage Engine"
+readme = "README.md"
+authors = [{ name = "B64Lab Contributors" }]
+license = { text = "MIT" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Topic :: Security",
+    "Topic :: Security :: Cryptography",
+    "Environment :: Console",
+]
+requires-python = ">=3.8"
+dependencies = []
+
+[project.scripts]
+b64lab = "b64lab.cli:main"

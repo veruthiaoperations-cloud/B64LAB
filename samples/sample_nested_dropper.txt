@@ -1,0 +1,7 @@
+# ==============================================================================
+# B64Lab Sample: Nested Multi-Stage Dropper (Base64 -> GZIP -> Script)
+# MITRE ATT&CK: T1027.002 (Software Packing), T1027 (Obfuscated Information)
+# ==============================================================================
+# Use the Recursive Unpacker (Triage [3]) on the payload string below:
+
+H4sIAAAAAAAAA3NMyk9RSFQIcPUNDvV3cfRxVXD1DXHxCVFIzy/KUSgoSi1W8ElNTM4tTlbwTszJyVdwzUsvLSpNLS5WcM4vLVYISk1KzUvPTAYAq1j28kwAAAA=
