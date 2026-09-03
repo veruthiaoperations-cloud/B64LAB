@@ -5,3 +5,7 @@ v1.0.0 (SEC-STD-EDITION)
 
 __version__ = "1.0.0"
 __author__ = "B64Lab Security"
+
+from .ui.ansi import Terminal
+
+Terminal.initialize()
