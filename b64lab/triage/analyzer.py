@@ -182,7 +182,8 @@ class TriageAnalyzer:
 
         sel = UIComponents.prompt("\nSelect artifact ID to inspect in detail (0 to cancel)")
         try:
-            art_id = int(sel)
+            clean_sel = sel.lstrip('#').strip()
+            art_id = int(clean_sel)
             selected = next((a for a in artifacts if a.artifact_id == art_id), None)
             if selected:
                 cls._display_artifact_details(selected)
@@ -193,9 +194,26 @@ class TriageAnalyzer:
     def _run_recursive_unpacker(cls) -> None:
         """Deep recursive de-obfuscator."""
         UIComponents.header("MULTI-STAGE RECURSIVE DE-OBFUSCATOR", "Unrolls Base64 -> GZIP / ZLIB -> Payload pipelines")
-        raw_b64 = input("\n  Paste nested Base64/Compressed payload: ").strip()
-        if not raw_b64:
+        user_input = input("\n  Paste nested Base64 string OR file path: ").strip().strip('"')
+        if not user_input:
             return
+
+        # Auto-detect if user passed a file path
+        if os.path.isfile(user_input):
+            try:
+                with open(user_input, "r", encoding="utf-8", errors="ignore") as f:
+                    file_content = f.read()
+                carved = ArtifactCarver.carve_string(file_content, min_length=16)
+                if carved:
+                    raw_b64 = max(carved, key=lambda a: len(a.raw_b64)).raw_b64
+                    print(f"  [+] Automatically carved Base64 payload from file ({len(raw_b64)} chars)...")
+                else:
+                    raw_b64 = file_content.strip()
+            except Exception as e:
+                print(f"  [!] Error reading file: {e}")
+                raw_b64 = user_input
+        else:
+            raw_b64 = user_input
 
         print("\n  [*] Executing recursive deconstruction pipeline...")
         result = RecursiveUnpacker.unpack(raw_b64)
