@@ -147,6 +147,47 @@ class SignatureDB:
             magic_bytes=b"GIF8",
             offset=0,
         ),
+        # Web Exploitation & Deserialization Magic Signatures
+        FileSignature(
+            category="SERIALIZATION",
+            extension="java-ser",
+            mime_type="application/x-java-serialized-object",
+            description="Java Serialized Object (ysoserial / RCE gadget chain)",
+            magic_bytes=b"\xac\xed\x00\x05",
+            offset=0,
+        ),
+        FileSignature(
+            category="SERIALIZATION",
+            extension="viewstate",
+            mime_type="application/x-aspnet-viewstate",
+            description="ASP.NET ViewState Serialized Object",
+            magic_bytes=b"\xff\x01",
+            offset=0,
+        ),
+        FileSignature(
+            category="SERIALIZATION",
+            extension="pickle",
+            mime_type="application/x-python-pickle",
+            description="Python Pickle Serialized Stream (Remote Code Execution)",
+            magic_bytes=b"\x80\x04",
+            offset=0,
+        ),
+        FileSignature(
+            category="SERIALIZATION",
+            extension="pickle",
+            mime_type="application/x-python-pickle",
+            description="Python Pickle Stream (Protocol 3)",
+            magic_bytes=b"\x80\x03",
+            offset=0,
+        ),
+        FileSignature(
+            category="SECURITY",
+            extension="crt",
+            mime_type="application/x-x509-ca-cert",
+            description="X.509 Certificate ASN.1 DER Stream",
+            magic_bytes=b"\x30\x82",
+            offset=0,
+        ),
         # Shellcode / Raw
         FileSignature(
             category="SHELLCODE",

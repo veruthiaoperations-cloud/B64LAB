@@ -250,6 +250,7 @@ Explore the complete visual curriculum, cheat sheets, and architectural guides i
 * 🥷 [**Module 2: Adversary Tradecraft & Malware Obfuscation** (`docs/02_MALWARE_OBFUSCATION.md`)](docs/02_MALWARE_OBFUSCATION.md) — PowerShell UTF-16LE vs. UTF-8 sequence diagrams, multi-stage dropper pipelines, and APT custom alphabets.
 * 🛡️ [**Module 3: Defensive Triage & Forensic Carving** (`docs/03_SOC_TRIAGE_FORENSICS.md`)](docs/03_SOC_TRIAGE_FORENSICS.md) — Shannon Entropy mathematical formulas, magic byte carving catalogs, and SIEM/EDR log hunting protocols.
 * 🎓 [**Module 4: Study Pathways & Curated Resources** (`docs/04_LEARNING_PATHWAYS_AND_RESOURCES.md`)](docs/04_LEARNING_PATHWAYS_AND_RESOURCES.md) — Curated video lectures (Computerphile, John Hammond, LiveOverflow), canonical RFC standards, and certification alignment roadmaps (Security+, CySA+, BTL1, OSCP).
+* 🌐 [**Module 5: Data URIs, HTML Smuggling & Web Exploitation** (`docs/06_DATA_URIS_HTML_SMUGGLING_AND_VARIANTS.md`)](docs/06_DATA_URIS_HTML_SMUGGLING_AND_VARIANTS.md) — RFC 2397 Data URIs, HTML Smuggling (T1027.006), MIME spoofing detection, and Java/ViewState deserialization gadgets.
 
 ---
 
@@ -258,6 +259,7 @@ Explore the complete visual curriculum, cheat sheets, and architectural guides i
 | ID | Technique Name | Tactic | B64Lab Simulation / Detection |
 | :--- | :--- | :--- | :--- |
 | **T1027** | Obfuscated Files or Information | Defense Evasion | Multi-stage unpacker & entropy scoring |
+| **T1027.006** | HTML Smuggling | Defense Evasion | Data URI parser & MIME mismatch detection |
 | **T1059.001** | PowerShell Scripting Interpreter | Execution | UTF-16LE generator and Event 4104 carver |
 | **T1132.001** | Standard Cryptographic Data Encoding | Command & Control | Carving embedded Base64 from web headers |
 | **T1071.004** | DNS Protocol: DNS Tunneling | Command & Control | Base32 exfiltration laboratory simulation |

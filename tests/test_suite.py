@@ -141,6 +141,35 @@ class TestSignatures(unittest.TestCase):
         self.assertTrue(is_ps)
         self.assertEqual(text, cmd)
 
+    def test_java_serialization_signature(self):
+        raw = b"\xac\xed\x00\x05sr\x00\x0bMyClass"
+        sig = SignatureDB.identify(raw)
+        self.assertIsNotNone(sig)
+        self.assertEqual(sig.extension, "java-ser")
+        self.assertEqual(sig.category, "SERIALIZATION")
+
+    def test_viewstate_signature(self):
+        raw = b"\xff\x01\x12\x34\x56"
+        sig = SignatureDB.identify(raw)
+        self.assertIsNotNone(sig)
+        self.assertEqual(sig.extension, "viewstate")
+
+    def test_pickle_signature(self):
+        raw = b"\x80\x04\x95\x12\x00\x00\x00"
+        sig = SignatureDB.identify(raw)
+        self.assertIsNotNone(sig)
+        self.assertEqual(sig.extension, "pickle")
+
+    def test_html_smuggling_mime_mismatch(self):
+        # Disguised EXE inside an image Data URI
+        fake_pe = b"MZ" + b"\x00" * 30
+        b64_pe = base64.b64encode(fake_pe).decode()
+        html_line = f'<img src="data:image/png;base64,{b64_pe}">'
+        artifacts = ArtifactCarver.carve_string(html_line)
+        self.assertEqual(len(artifacts), 1)
+        self.assertIn("HTML Smuggling", artifacts[0].threat_assessment)
+        self.assertIn("image/png", artifacts[0].threat_assessment)
+
 
 class TestUnpacker(unittest.TestCase):
     """Verifies recursive multi-stage de-obfuscation."""

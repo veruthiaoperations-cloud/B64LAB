@@ -31,9 +31,11 @@ class Workbench:
             print("  [4] Decode: Standard / URL-Safe Base64 to Text & Hex")
             print("  [5] Decode: Base32 to Text")
             print("  [6] Inspect Entropy of String")
+            print("  [7] Data URI: Encode Image or File to data:<mime>;base64 (RFC 2397)")
+            print("  [8] Data URI: Decode & Check for MIME Spoofing / HTML Smuggling")
             print("  [0] Return to Main Menu\n")
 
-            choice = UIComponents.prompt("Select workbench tool (0-6)")
+            choice = UIComponents.prompt("Select workbench tool (0-8)")
             if choice == "0":
                 break
             elif choice == "1":
@@ -54,7 +56,6 @@ class Workbench:
             elif choice == "4":
                 raw = input("\n  Enter Base64 to decode: ").strip()
                 try:
-                    # Auto repair padding
                     rem = len(raw) % 4
                     if rem == 2:
                         raw += "=="
@@ -91,4 +92,59 @@ class Workbench:
                 print(f"\n  Entropy: {bar}")
                 print(f"  Class  : {report.classification} (Threat: {report.threat_level})")
                 print(f"  Note   : {report.description}\n")
+                UIComponents.pause()
+            elif choice == "7":
+                fpath = input("\n  Enter path to file or image: ").strip().strip('"')
+                import os
+                if not os.path.exists(fpath):
+                    print(f"  [!] File not found: {fpath}")
+                else:
+                    ext = os.path.splitext(fpath)[1].lower().lstrip(".")
+                    mime_map = {
+                        "png": "image/png", "jpg": "image/jpeg", "jpeg": "image/jpeg",
+                        "gif": "image/gif", "svg": "image/svg+xml", "pdf": "application/pdf",
+                        "ico": "image/x-icon", "webp": "image/webp"
+                    }
+                    mime = mime_map.get(ext, "application/octet-stream")
+                    with open(fpath, "rb") as f:
+                        data = f.read()
+                    enc_b64 = base64.b64encode(data).decode("ascii")
+                    data_uri = f"data:{mime};base64,{enc_b64}"
+                    print(f"\n  [+] Encoded {len(data)} bytes into RFC 2397 Data URI:")
+                    print(f"      {data_uri[:100]}... (Total {len(data_uri)} chars)")
+                    save_choice = UIComponents.prompt("Export full Data URI string to text file? [Y/N]")
+                    if save_choice.upper() == "Y":
+                        out_txt = fpath + ".datauri.txt"
+                        with open(out_txt, "w") as out_f:
+                            out_f.write(data_uri)
+                        print(f"  [+] Saved Data URI to: {out_txt}")
+                UIComponents.pause()
+            elif choice == "8":
+                raw_uri = input("\n  Paste Data URI (data:<mime>;base64,<data>): ").strip()
+                import re
+                m = re.match(r"data:(?P<mime>[\w/+-]+);base64,(?P<data>[A-Za-z0-9+/=]+)", raw_uri)
+                if not m:
+                    print("  [!] Invalid Data URI format. Expected 'data:<mime>;base64,<payload>'")
+                else:
+                    claimed_mime = m.group("mime")
+                    b64_data = m.group("data")
+                    rem = len(b64_data) % 4
+                    if rem == 2: b64_data += "=="
+                    elif rem == 3: b64_data += "="
+                    try:
+                        decoded = base64.b64decode(b64_data, validate=False)
+                        sig = SignatureDB.identify(decoded)
+                        print(f"\n  [+] Claimed MIME Type: {claimed_mime}")
+                        print(f"  [+] Decoded Payload  : {len(decoded)} bytes")
+                        if sig:
+                            print(f"  [+] Detected Signature: {sig.description} (MIME: {sig.mime_type})")
+                            if "image" in claimed_mime and sig.category in ["EXECUTABLE", "ARCHIVE"]:
+                                print(f"  {ANSI.BRIGHT_RED}{ANSI.BOLD}[!] ALERT: CRITICAL MIME MISMATCH! (HTML Smuggling Indicator T1027.006){ANSI.RESET}")
+                                print(f"      Claimed to be an image but contains a {sig.category} binary!")
+                        else:
+                            print(f"  [!] No recognized file signature.")
+                        print("\n  Canonical Hex Dump:")
+                        print(HexViewer.render(decoded, max_bytes=96))
+                    except Exception as e:
+                        print(f"  [!] Failed to decode: {e}")
                 UIComponents.pause()

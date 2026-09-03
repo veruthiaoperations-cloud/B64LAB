@@ -43,6 +43,9 @@ class ArtifactCarver:
     # Permissive to capture both padded ('=', '==') and unpadded sequences
     B64_REGEX = re.compile(r"[A-Za-z0-9+/]{16,}={0,2}")
 
+    # Regex matching RFC 2397 Data URIs (e.g. data:image/png;base64,iVBORw0KGgo...)
+    DATA_URI_REGEX = re.compile(r"data:(?P<mime>[\w/+-]+);base64,(?P<data>[A-Za-z0-9+/=]+)")
+
     @classmethod
     def carve_stream(cls, line_iterable, min_length: int = 16):
         """
@@ -73,12 +76,27 @@ class ArtifactCarver:
                 is_ps, ps_code = SignatureDB.is_powershell_utf16le(decoded)
                 is_txt, txt_preview = SignatureDB.is_text(decoded)
 
+                # Check for Data URI context on this line
+                data_uri_match = cls.DATA_URI_REGEX.search(line)
+                claimed_mime = data_uri_match.group("mime") if data_uri_match and candidate in data_uri_match.group("data") else None
+
+                # Threat assessment
                 if sig and sig.category in ["EXECUTABLE", "SHELLCODE"]:
-                    threat = "CRITICAL (Embedded Executable / Shellcode)"
+                    if claimed_mime and "image" in claimed_mime:
+                        threat = f"CRITICAL (HTML Smuggling: Spoofed '{claimed_mime}' Hiding {sig.description})"
+                    else:
+                        threat = f"CRITICAL (Embedded Executable: {sig.description})"
+                elif sig and sig.category == "SERIALIZATION":
+                    threat = f"CRITICAL (Deserialization Exploit: {sig.description})"
                 elif is_ps:
                     threat = "HIGH (PowerShell UTF-16LE Script)"
                 elif sig and sig.category == "ARCHIVE":
-                    threat = "HIGH (Embedded Archive / Dropper Stager)"
+                    if claimed_mime and "image" in claimed_mime:
+                        threat = f"CRITICAL (HTML Smuggling: Spoofed '{claimed_mime}' Hiding {sig.description})"
+                    else:
+                        threat = f"HIGH (Embedded Archive: {sig.description})"
+                elif sig and sig.category == "IMAGE":
+                    threat = f"INFORMATIONAL (Embedded Image: {sig.extension.upper()})"
                 elif ent_report.entropy > 6.5:
                     threat = "SUSPICIOUS (High Randomness / Encrypted Payload)"
                 else:
