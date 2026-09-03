@@ -24,6 +24,8 @@ from b64lab.triage.carver import ArtifactCarver
 from b64lab.forge.powershell import PowerShellForge
 from b64lab.forge.dropper import DropperForge
 from b64lab.ctf.engine import CTFAntiCheat, CHALLENGE_DEFINITIONS
+from b64lab.ui.components import UIComponents
+from b64lab.ui.ansi import visible_len
 
 class TestBitwiseEngine(unittest.TestCase):
     """Verifies first-principles bitwise operations match RFC 4648 standard."""
@@ -355,6 +357,37 @@ class TestCLIModule(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 0)
         self.assertIn("VGVzdFBheWxvYWQxMjM=", result.stdout.strip())
+
+
+class TestUIComponents(unittest.TestCase):
+    """Verifies that terminal UI elements (banners, boxes, headers) remain pixel-perfect."""
+
+    def test_banner_alignment_all_lanes(self):
+        for lane in ("NEUTRAL", "DEFENSIVE", "OFFENSIVE"):
+            banner = UIComponents.banner(lane)
+            lines = banner.splitlines()
+            self.assertEqual(len(lines), 8, f"Banner must be 8 lines tall in {lane}")
+            for idx, line in enumerate(lines):
+                vis_w = visible_len(line)
+                self.assertEqual(vis_w, 80, f"Line {idx} in lane {lane} must be exactly 80 chars wide (got {vis_w})")
+
+    def test_box_alignment_and_styles(self):
+        import io, contextlib
+        test_payloads = [
+            ["Short"],
+            ["Line 1", "Line 2 is longer than Line 1", "Line 3"],
+            ["X" * 90],  # test auto-expansion beyond 80 chars
+        ]
+        for payload in test_payloads:
+            for style in ("double", "rounded", "single"):
+                for title in ("TEST TITLE", None):
+                    buf = io.StringIO()
+                    with contextlib.redirect_stdout(buf):
+                        UIComponents.box(payload, title=title, style=style)
+                    lines = buf.getvalue().splitlines()
+                    self.assertGreater(len(lines), 2)
+                    widths = [visible_len(l) for l in lines]
+                    self.assertEqual(len(set(widths)), 1, f"Box lines must be uniformly wide: {widths} (style={style}, title={title})")
 
 
 if __name__ == "__main__":

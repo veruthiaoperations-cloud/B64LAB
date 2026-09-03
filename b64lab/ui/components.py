@@ -17,6 +17,7 @@ class UIComponents:
     def banner(cls, lane_label: Optional[str] = None) -> str:
         """
         Renders the signature B64Lab nostalgic ASCII logo with dynamic lane badge.
+        Guarantees exact 80-column alignment across all operational lanes.
         """
         palette = Theme.get_palette()
         p = palette.primary
@@ -27,22 +28,38 @@ class UIComponents:
 
         lane = lane_label or Theme.get_lane()
         if lane == "DEFENSIVE":
-            lane_badge = f"{palette.primary}[ DEFENSIVE / BLUE TEAM TRIAGE ]{r}"
+            badge_text = "[ DEFENSIVE TRIAGE ]"
+            badge_color = palette.primary
         elif lane == "OFFENSIVE":
-            lane_badge = f"{palette.primary}[ OFFENSIVE / RED TEAM SIMULATOR ]{r}"
+            badge_text = "[ OFFENSIVE FORGE ]"
+            badge_color = palette.primary
         else:
-            lane_badge = f"{palette.secondary}[ ZERO-DEPENDENCY LAB ENVIRONMENT ]{r}"
+            badge_text = "[ ZERO-DEPENDENCY ]"
+            badge_color = palette.secondary
 
-        lines = [
-            f"{p}╔══════════════════════════════════════════════════════════════════════════════╗{r}",
-            f"{p}║{r}  {s}██████╗  ██████╗ ██╗  ██╗██╗      █████╗ ██████╗{r}                            {p}║{r}",
-            f"{p}║{r}  {s}██╔══██╗██╔════╝ ██║  ██║██║     ██╔══██╗██╔══██╗{r}   {lane_badge.ljust(43)} {p}║{r}",
-            f"{p}║{r}  {s}██████╔╝███████╗ ███████║██║     ███████║██████╔╝{r}   {d}[ RFC 4648 SPEC ENGINE ]{r}     {p}║{r}",
-            f"{p}║{r}  {s}██╔══██╗██╔═══██╗╚════██║██║     ██╔══██║██╔══██╗{r}   {d}[ BITWISE ACADEMY & CTF]{r}     {p}║{r}",
-            f"{p}║{r}  {s}██████╔╝╚██████╔╝     ██║███████╗██║  ██║██████╔╝{r}                           {p}║{r}",
-            f"{p}║{r}  {s}╚═════╝  ╚═════╝      ╚═╝╚══════╝╚═╝  ╚═╝╚═════╝{r}    {a}v1.0.0 (SEC-STD-EDITION){r} {p}║{r}",
-            f"{p}╚══════════════════════════════════════════════════════════════════════════════╝{r}",
+        logo = [
+            "██████╗  ██████╗ ██╗  ██╗ ██╗       █████╗  ██████╗ ",
+            "██╔══██╗██╔════╝ ██║  ██║ ██║      ██╔══██╗ ██╔══██╗",
+            "██████╔╝███████╗ ███████║ ██║      ███████║ ██████╔╝",
+            "██╔══██╗██╔═══██╗╚════██║ ██║      ██╔══██║ ██╔══██╗",
+            "██████╔╝╚██████╔╝     ██║ ███████╗ ██║  ██║ ██████╔╝",
+            "╚═════╝  ╚═════╝      ╚═╝ ╚══════╝ ╚═╝  ╚═╝ ╚═════╝ ",
         ]
+
+        pad_b = " " * (23 - len(badge_text))
+        right_items = [
+            " " * 23,
+            f"{badge_color}{badge_text}{r}" + pad_b,
+            f"{d}[ RFC 4648 SPEC ]{r}" + (" " * (23 - 17)),
+            f"{d}[ BITWISE & CTF ]{r}" + (" " * (23 - 17)),
+            f"{d}[ FORENSIC LAB ]{r}" + (" " * (23 - 16)),
+            f"{a}v1.0.0 (SEC-STD){r}" + (" " * (23 - 16)),
+        ]
+
+        lines = [f"{p}╔" + ("═" * 78) + f"╗{r}"]
+        for i in range(6):
+            lines.append(f"{p}║{r} {s}{logo[i]}{r} {right_items[i]} {p}║{r}")
+        lines.append(f"{p}╚" + ("═" * 78) + f"╝{r}")
         return "\n".join(lines)
 
     @classmethod
@@ -54,7 +71,9 @@ class UIComponents:
         d = palette.dim
         r = ANSI.RESET
 
-        print(f"\n{p}───[ {ANSI.BOLD}{title.upper()}{r}{p} ]" + "─" * max(2, width - len(title) - 8) + f"{r}")
+        title_vis = visible_len(title)
+        fill_len = max(2, width - title_vis - 7)
+        print(f"\n{p}───[ {ANSI.BOLD}{title.upper()}{r}{p} ]" + ("─" * fill_len) + f"{r}")
         if subtitle:
             print(f"    {d}{subtitle}{r}")
         print()
@@ -92,15 +111,15 @@ class UIComponents:
         if title:
             title_str = f" {title} "
             title_vis = visible_len(title_str)
-            remaining_h = max(2, box_width - 2 - title_vis - 2)
-            top_line = f"{p}{tl}{h}{palette.secondary}{ANSI.BOLD}{title_str}{r}{p}{h * remaining_h}{tr}{r}"
+            remaining_h = max(2, box_width - title_vis - 4)
+            top_line = f"{p}{tl}{h}{h}{palette.secondary}{ANSI.BOLD}{title_str}{r}{p}{h * remaining_h}{tr}{r}"
         else:
             top_line = f"{p}{tl}{h * (box_width - 2)}{tr}{r}"
 
         print(top_line)
 
         # Body
-        inner_width = box_width - 4
+        inner_width = box_width - 6
         for line in content_lines:
             vis = visible_len(line)
             pad_len = max(0, inner_width - vis)
