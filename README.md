@@ -25,6 +25,27 @@
 
 ---
 
+## 👶 Explain Like I'm 5: What Is This Project in Plain English?
+
+If you are new to technology or cybersecurity, the technical words above can sound like another language. Here is what this project is actually about in simple everyday terms:
+
+### The Problem
+* The internet was built to carry **plain text** (letters and numbers). If you try to send a raw computer file (like a picture, program, or PDF) across a text-only system, the raw computer code breaks or turns into corrupt glitchy garbage.
+* **Base64 is the "Waterproof Shipping Container" of the internet:** It translates any computer file into safe, ordinary letters and numbers (`A-Z`, `a-z`, `0-9`) so it can travel anywhere across the internet without breaking.
+
+### The Cybersecurity Cat-and-Mouse Game
+1. **The Hackers (Red Team):** Hackers love Base64 because they can wrap dangerous computer viruses inside this innocent-looking text. To a basic email filter or firewall, it just looks like random alphabet soup, allowing the virus to sneak right through the front door.
+2. **The Defenders (Blue Team / SOC Analysts):** Cybersecurity defenders have to examine thousands of system logs and network connections every day, spot these hidden chunks of text, unscramble them, and figure out what the hacker is trying to steal or destroy.
+
+### What B64Lab Does
+**B64Lab** is both a **training flight simulator** and an **industrial automated scanner**:
+* **The Flight Simulator (Academy & CTF Games):** It teaches students from scratch how hackers hide things, breaking down the exact mechanics step-by-step with interactive puzzle games (Capture The Flag challenges).
+* **The Industrial Scanner (Forensic Triage Engine):** For real-world companies, it scans massive 50 MB log files containing hundreds of thousands of events in seconds, automatically detects hidden attacks, and exports clean spreadsheets for security teams.
+
+> 💡 **New to tech buzzwords?** Check out [**The Cyber Jargon Buster & Master Technical Index** (`docs/07_CYBER_JARGON_BUSTER_AND_DICTIONARY.md`)](docs/07_CYBER_JARGON_BUSTER_AND_DICTIONARY.md) for simple everyday definitions of every term.
+
+---
+
 ## 🎯 Why B64Lab Was Built: The Mission & The Gap
 
 During cybersecurity certification training (Security+, CySA+, BTL1, OSCP), students repeatedly encounter Base64 in JWT tokens, phishing attachments, PowerShell `-EncodedCommand` invocations, and malware droppers. 
@@ -249,6 +270,7 @@ B64Lab features a **dynamic HMAC-SHA256 anti-cheat challenge engine**. **Zero st
 
 Explore the complete visual curriculum, cheat sheets, and architectural guides in `docs/`:
 * 🧭 [**Start Here: The 0-to-100 Curriculum Roadmap** (`docs/00_START_HERE_CURRICULUM.md`)](docs/00_START_HERE_CURRICULUM.md) — Ground-floor guide covering bits, bytes, and step-by-step guidance on how to maximize your learning.
+* 📖 [**The Cyber Jargon Buster & Master Technical Index** (`docs/07_CYBER_JARGON_BUSTER_AND_DICTIONARY.md`)](docs/07_CYBER_JARGON_BUSTER_AND_DICTIONARY.md) — Plain English (ELI5) definitions of every technical term, acronym, and buzzword from Bit to SIEM.
 * 📊 [**Complete Schema Cheat Sheet & Visualizer** (`docs/05_BASE64_CHEAT_SHEET_AND_VISUALIZER.md`)](docs/05_BASE64_CHEAT_SHEET_AND_VISUALIZER.md) — The full 64-character lookup grid (0–63), worked `"Hello"` step-by-step encoding/decoding, and padding visualizer.
 * 🎯 [**The Mission & The Gap** (`docs/00_WHY_B64LAB_EXISTS.md`)](docs/00_WHY_B64LAB_EXISTS.md) — The student origin story, competitive landscape analysis (CyberChef, base64dump, Ciphey), and multi-modal pedagogy.
 * ⚙️ [**Module 1: Low-Level Bitwise Architecture** (`docs/01_BITWISE_ARCHITECTURE.md`)](docs/01_BITWISE_ARCHITECTURE.md) — 24-bit shift buffers, octet-to-sextet regrouping, CPU bit-shifts, and mathematical padding proofs.
