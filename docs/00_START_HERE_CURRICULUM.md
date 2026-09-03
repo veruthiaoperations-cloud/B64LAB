@@ -5,7 +5,7 @@
 
 ---
 
-## 🧭 The Learning Roadmap at a Glance
+## The Learning Roadmap at a Glance
 
 ```mermaid
 flowchart TD
@@ -18,7 +18,7 @@ flowchart TD
 
 ---
 
-## 🟢 Level 0: The Ground Floor (Prerequisites)
+## Level 0: The Ground Floor (Prerequisites)
 
 If you have never studied binary or low-level computing, start here.
 
@@ -34,7 +34,7 @@ If you have never studied binary or low-level computing, start here.
 
 ### 3. What is Character Encoding (ASCII)?
 * Computers only understand numbers, not letters.
-* **ASCII** is an agreed-upon standard lookup table that assigns letters to numbers:
+*** ASCII** is an agreed-upon standard lookup table that assigns letters to numbers:
   * Number `65` $\rightarrow$ `'A'`
   * Number `97` $\rightarrow$ `'a'`
   * Number `72` $\rightarrow$ `'H'`
@@ -43,14 +43,14 @@ If you have never studied binary or low-level computing, start here.
 ### 4. Why Binary-to-Text Encoding is Needed
 * Early protocols (Email, HTTP, IRC) were built for printable text.
 * If you send a binary file (an image, a PDF, an executable), it contains byte values like `0x00` (null byte) and control characters that corrupt text parsers.
-* **Base64 converts any binary file into safe, printable letters and numbers.**
+*** Base64 converts any binary file into safe, printable letters and numbers.**
 
 ---
 
-## 🟡 Level 1: The Core Mechanism (The Math)
+## Level 1: The Core Mechanism (The Math)
 
-* **What to read first:** [docs/05_BASE64_CHEAT_SHEET_AND_VISUALIZER.md](05_BASE64_CHEAT_SHEET_AND_VISUALIZER.md)
-* **What you will learn:**
+*** What to read first:** [docs/05_BASE64_CHEAT_SHEET_AND_VISUALIZER.md](05_BASE64_CHEAT_SHEET_AND_VISUALIZER.md)
+*** What you will learn:**
   1. The **Least Common Multiple (LCM)** of 8-bit bytes and 6-bit chunks is **24 bits**.
   2. Every 3 raw bytes ($3 \times 8 = 24$ bits) expand into 4 safe ASCII characters ($4 \times 6 = 24$ bits).
   3. Why Base64 always causes a **33.3% increase in file size**.
@@ -59,7 +59,7 @@ If you have never studied binary or low-level computing, start here.
 
 ---
 
-## 🟠 Level 2: Hands-On Interactive Tracing
+## Level 2: Hands-On Interactive Tracing
 
 Now, open your terminal and see the math execute live on your own machine.
 
@@ -71,14 +71,14 @@ python b64lab.py trace "Hello"
 python b64lab.py trace "YourName"
 ```
 
-* **What you will see:** The terminal breaks down every letter into its 8-bit octets, combines them into a 24-bit shift buffer, slices them into 6-bit sextets, and looks up the characters in real-time.
+*** What you will see:** The terminal breaks down every letter into its 8-bit octets, combines them into a 24-bit shift buffer, slices them into 6-bit sextets, and looks up the characters in real-time.
 
 ---
 
-## 🔵 Level 3: Cyber Exploitation & Edge Cases
+## Level 3: Cyber Exploitation & Edge Cases
 
-* **What to read:** [docs/02_MALWARE_OBFUSCATION.md](02_MALWARE_OBFUSCATION.md)
-* **What to practice in B64Lab:**
+*** What to read:** [docs/02_MALWARE_OBFUSCATION.md](02_MALWARE_OBFUSCATION.md)
+*** What to practice in B64Lab:**
   1. **PowerShell UTF-16LE Gotcha:**
      ```bash
      # Forge a PowerShell payload and compare UTF-8 vs UTF-16LE
@@ -90,10 +90,10 @@ python b64lab.py trace "YourName"
 
 ---
 
-## 🟣 Level 4: SOC Forensics & Enterprise Automation
+## Level 4: SOC Forensics & Enterprise Automation
 
-* **What to read:** [docs/03_SOC_TRIAGE_FORENSICS.md](03_SOC_TRIAGE_FORENSICS.md)
-* **What to practice in B64Lab:**
+*** What to read:** [docs/03_SOC_TRIAGE_FORENSICS.md](03_SOC_TRIAGE_FORENSICS.md)
+*** What to practice in B64Lab:**
   1. **Shannon Entropy Threat Scoring:**
      ```bash
      python b64lab.py entropy "TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAA"
@@ -111,7 +111,7 @@ python b64lab.py trace "YourName"
 
 ---
 
-## 🏆 Level 5: The Anti-Cheat CTF Challenge Arena
+## Level 5: The Anti-Cheat CTF Challenge Arena
 
 Now put everything together in the hands-on arena.
 
@@ -121,8 +121,8 @@ python b64lab.py
 # Select [4] CTF CHALLENGES
 ```
 
-* **Anti-Cheat Hardened:** Your session generates unique, cryptographically salted HMAC-SHA256 flags. You cannot find the answers on Google or by grepping the source code.
-* **Progressive Difficulty:**
+*** Anti-Cheat Hardened:** Your session generates unique, cryptographically salted HMAC-SHA256 flags. You cannot find the answers on Google or by grepping the source code.
+*** Progressive Difficulty:**
   * Level 1: Basic Token Decoding
   * Level 2: Repairing Stripped Padding (`=`)
   * Level 3: De-obfuscating PowerShell UTF-16LE

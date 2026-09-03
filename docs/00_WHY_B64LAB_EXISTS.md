@@ -7,7 +7,7 @@
 
 ## 1. The Origin Story: A Student's Hands-On Journey
 
-**B64Lab** was born out of a real problem experienced during cybersecurity training.
+** B64Lab** was born out of a real problem experienced during cybersecurity training.
 
 When studying for security certifications (CompTIA Security+, CySA+, BTL1, OSCP, PNPT), virtually every student encounters Base64. You see it in:
 * Web tokens (JSON Web Tokens / JWTs)
@@ -42,10 +42,10 @@ THE EXISTING TOOLING LANDSCAPE
 │  CYBERCHEF              BASE64DUMP.PY           CIPHEY                      │
 │  (GCHQ Web App)         (Didier Stevens CLI)    (Cryptanalysis Engine)      │
 │  ─────────────────      ────────────────────    ──────────────────────      │
-│  ✓ Swiss-Army knife     ✓ Good for carving      ✓ Heuristic decryption      │
-│  ✗ Generic utility      ✗ Cryptic CLI flags     ✗ General cryptography      │
-│  ✗ Doesn't teach cyber  ✗ Zero learning lab     ✗ No threat context         │
-│  ✗ Heavy browser app    ✗ Zero offensive sim    ✗ Heavy ML dependencies     │
+│   Swiss-Army knife      Good for carving       Heuristic decryption      │
+│   Generic utility       Cryptic CLI flags      General cryptography      │
+│   Doesn't teach cyber   Zero learning lab      No threat context         │
+│   Heavy browser app     Zero offensive sim     Heavy ML dependencies     │
 └─────────────────────────────────────────────────────────────────────────────┘
                                       │
                                       ▼
@@ -63,16 +63,16 @@ THE EXISTING TOOLING LANDSCAPE
 
 | Feature / Capability | GCHQ CyberChef | Didier Stevens `base64dump.py` | Ciphey | **B64Lab** |
 | :--- | :---: | :---: | :---: | :---: |
-| **Air-Gapped CLI (No Browser Required)** | ❌ | ✅ | ✅ | **✅ (Pure Stdlib)** |
-| **Zero Third-Party Dependencies** | ❌ (Web) | ✅ (Python) | ❌ (Many wheels) | **✅ (100% Built-in)** |
-| **Interactive Educational Lessons** | ❌ | ❌ | ❌ | **✅ (0-to-100 Academy)** |
-| **Visual 24-Bit Bitwise Step-Through** | ❌ | ❌ | ❌ | **✅ (Interactive Tracer)** |
-| **PowerShell UTF-16LE Auto-Detection** | ❌ (Manual) | ❌ | ❌ | **✅ (Native Subsystem)** |
-| **Shannon Entropy Anomaly Scoring** | Manual Recipe | ❌ | Partial | **✅ (Colorized Meter)** |
-| **Magic Byte Signature Identification** | Manual Recipe | ❌ | ❌ | **✅ (PE/ELF/PDF/ZIP/GZ)** |
-| **Recursive Multi-Stage Dropper Unpacker** | Manual Recipe | ❌ | Partial | **✅ (Recursive Engine)** |
-| **Adversary Payload Forge & Evasion** | ❌ | ❌ | ❌ | **✅ (Red Team Lane)** |
-| **Dynamic Anti-Cheat CTF Challenge Arena**| ❌ | ❌ | ❌ | **✅ (HMAC-SHA256)** |
+| **Air-Gapped CLI (No Browser Required)** |  |  |  | ** (Pure Stdlib)** |
+| **Zero Third-Party Dependencies** |  (Web) |  (Python) |  (Many wheels) | ** (100% Built-in)** |
+| **Interactive Educational Lessons** |  |  |  | ** (0-to-100 Academy)** |
+| **Visual 24-Bit Bitwise Step-Through** |  |  |  | ** (Interactive Tracer)** |
+| **PowerShell UTF-16LE Auto-Detection** |  (Manual) |  |  | ** (Native Subsystem)** |
+| **Shannon Entropy Anomaly Scoring** | Manual Recipe |  | Partial | ** (Colorized Meter)** |
+| **Magic Byte Signature Identification** | Manual Recipe |  |  | ** (PE/ELF/PDF/ZIP/GZ)** |
+| **Recursive Multi-Stage Dropper Unpacker** | Manual Recipe |  | Partial | ** (Recursive Engine)** |
+| **Adversary Payload Forge & Evasion** |  |  |  | ** (Red Team Lane)** |
+| **Dynamic Anti-Cheat CTF Challenge Arena**|  |  |  | ** (HMAC-SHA256)** |
 
 ---
 

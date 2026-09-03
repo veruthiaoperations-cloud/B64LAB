@@ -7,7 +7,7 @@
 
 ## 1. Shannon Entropy: Mathematical Threat Hunting
 
-**Shannon Entropy** quantifies the degree of randomness or information density in a sequence of bytes. Measured on a scale from $0.00$ to $8.00$ bits per symbol:
+** Shannon Entropy** quantifies the degree of randomness or information density in a sequence of bytes. Measured on a scale from $0.00$ to $8.00$ bits per symbol:
 
 $$H(X) = -\sum_{i=1}^{n} P(x_i) \log_2 P(x_i)$$
 

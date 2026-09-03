@@ -7,12 +7,12 @@
 
 ## 1. Authorized Use & Educational Purpose Only
 
-**B64Lab** is developed, curated, and distributed by **Veruthia Consulting LLC** exclusively for:
+** B64Lab** is developed, curated, and distributed by **Veruthia Consulting LLC** exclusively for:
 1. Authorized educational research and cybersecurity certification training.
 2. Lawful defensive security operations, digital forensics, and incident response (DFIR).
 3. Authorized security assessments conducted in controlled, isolated laboratory environments with explicit, documented consent from the target network/system owner.
 
-**Strict Prohibition on Malicious / Unauthorized Activity:**  
+** Strict Prohibition on Malicious / Unauthorized Activity:**  
 Under no circumstances may this software or its associated scripts, modules, or payloads be utilized against any system, network, or device without prior, written, and verified authorization from the lawful owner. Any unauthorized use against third-party computer systems constitutes a direct violation of:
 * The **United States Computer Fraud and Abuse Act (CFAA)** (18 U.S.C. § 1030)
 * The **Electronic Communications Privacy Act (ECPA)** (18 U.S.C. § 2510 et seq.)
@@ -52,8 +52,8 @@ BY ACCESSING, DOWNLOADING, CLONING, COMPILING, OR EXECUTING THIS SOFTWARE, **YOU
 
 Certain modules within B64Lab demonstrate obfuscation and evasion techniques (e.g., PowerShell `-EncodedCommand`, multi-stage droppers, custom alphabet substitution) for defensive identification and CTF simulation. 
 
-* **Dual-Use Classification:** This tool constitutes dual-use educational information and defensive software. It is distributed publicly under the open-source MIT License and is intended strictly to assist security defenders, reverse engineers, and forensic analysts in detecting adversary tradecraft.
-* **Export Controls:** Users are solely responsible for ensuring that their download, export, re-export, or use of this software complies with all applicable export and import control laws, including the **U.S. Export Administration Regulations (EAR)** and the **Wassenaar Arrangement on Dual-Use Goods and Technologies**.
+*** Dual-Use Classification:** This tool constitutes dual-use educational information and defensive software. It is distributed publicly under the open-source MIT License and is intended strictly to assist security defenders, reverse engineers, and forensic analysts in detecting adversary tradecraft.
+*** Export Controls:** Users are solely responsible for ensuring that their download, export, re-export, or use of this software complies with all applicable export and import control laws, including the **U.S. Export Administration Regulations (EAR)** and the **Wassenaar Arrangement on Dual-Use Goods and Technologies**.
 
 ---
 

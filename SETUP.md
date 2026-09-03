@@ -4,19 +4,19 @@
 
 ---
 
-## ⚡ 1. System Requirements
+## 1. System Requirements
 
-* **Python Version:** Python 3.8 or newer (3.8, 3.9, 3.10, 3.11, 3.12+ supported).
-* **Operating Systems:**
+*** Python Version:** Python 3.8 or newer (3.8, 3.9, 3.10, 3.11, 3.12+ supported).
+*** Operating Systems:**
   * Windows 10 / Windows 11 / Windows Server (PowerShell, CMD, Windows Terminal)
   * Linux (Ubuntu, Debian, Fedora, Arch, Alpine, Kali, REMnux, SIFT)
   * macOS (Terminal, iTerm2)
-* **Hardware:** Any hardware capable of running Python (~20 MB RAM footprint).
-* **Dependencies:** **Zero external packages.** No `pip install`, no `requirements.txt`, no `npm`, no C compilers.
+*** Hardware:** Any hardware capable of running Python (~20 MB RAM footprint).
+*** Dependencies:** **Zero external packages.** No `pip install`, no `requirements.txt`, no `npm`, no C compilers.
 
 ---
 
-## 🚀 2. Quickstart (Clone & Run)
+## 2. Quickstart (Clone & Run)
 
 ```bash
 # 1. Clone repository
@@ -34,7 +34,7 @@ python -m b64lab
 
 ---
 
-## 🖥️ 3. Operating System Specific Configurations
+## ️ 3. Operating System Specific Configurations
 
 ### Windows 10 / Windows 11 Setup
 
@@ -61,7 +61,7 @@ chmod +x b64lab.py
 
 ---
 
-## 🔒 4. Air-Gapped / Isolated Forensic Workstation Deployment
+## 4. Air-Gapped / Isolated Forensic Workstation Deployment
 
 Because B64Lab relies **100% on the Python Standard Library**, it is specifically designed for restricted jumpboxes, malware analysis sandboxes, and air-gapped forensic environments (e.g., SANS SIFT, REMnux, FlareVM):
 
@@ -77,11 +77,11 @@ Because B64Lab relies **100% on the Python Standard Library**, it is specificall
    cd B64LAB
    python3 b64lab.py
    ```
-*No pip wheels, compiler toolchains, or network calls are ever required.*
+* No pip wheels, compiler toolchains, or network calls are ever required.*
 
 ---
 
-## 🐳 5. Headless Docker & CI/CD Pipelines
+## 5. Headless Docker & CI/CD Pipelines
 
 To run B64Lab in automated security pipelines or containers without an interactive terminal:
 
@@ -93,22 +93,22 @@ docker run --rm -v $(pwd):/data python:3-alpine python /data/b64lab.py carve /da
 ```
 
 ### Headless CLI Flags
-* **Carve logs to CSV spreadsheet:**
+*** Carve logs to CSV spreadsheet:**
   ```bash
   python b64lab.py carve /var/log/apache2/access.log --format csv -o incident.csv
   ```
-* **Carve logs to SQLite database:**
+*** Carve logs to SQLite database:**
   ```bash
   python b64lab.py carve /var/log/syslog --format sqlite -o forensics.db
   ```
-* **Unix Pipe Streaming:**
+*** Unix Pipe Streaming:**
   ```bash
   cat /var/log/nginx/access.log | python b64lab.py carve - --format json
   ```
 
 ---
 
-## 🧪 6. Verifying Installation & Integrity
+## 6. Verifying Installation & Integrity
 
 Run the built-in automated test suite to confirm all cryptographic, bitwise, and carving engines function properly on your environment:
 
@@ -116,7 +116,7 @@ Run the built-in automated test suite to confirm all cryptographic, bitwise, and
 python -m unittest tests/test_suite.py -v
 ```
 
-**Expected Output:**
+** Expected Output:**
 ```
 Ran 30 tests in 0.047s
 OK

@@ -1,8 +1,8 @@
 # Security Policy
 
-## 🛡️ Responsible Disclosure
+## ️ Responsible Disclosure
 
-**Veruthia Consulting LLC** takes the security of our software and educational tools seriously. If you discover a potential vulnerability in B64Lab, we appreciate your cooperation in disclosing it responsibly.
+** Veruthia Consulting LLC** takes the security of our software and educational tools seriously. If you discover a potential vulnerability in B64Lab, we appreciate your cooperation in disclosing it responsibly.
 
 ### Supported Versions
 
@@ -12,7 +12,7 @@
 
 ---
 
-## 📩 Reporting a Vulnerability
+## Reporting a Vulnerability
 
 Please **do not** open public GitHub issues for security-sensitive bugs or potential exploits.
 
@@ -29,6 +29,6 @@ We will acknowledge receipt within 48 hours and coordinate remediation.
 
 ---
 
-## ⚖️ Educational & Defensive Disclaimer
+## ️ Educational & Defensive Disclaimer
 
 B64Lab is developed and distributed strictly for authorized educational research, defensive security operations, and digital forensics training. All offensive simulation modules are designed for local, sandboxed laboratory environments only.

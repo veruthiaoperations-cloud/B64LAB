@@ -14,10 +14,10 @@ data:[<mediatype>][;base64],<data>
 ```
 
 ### Common Legitimate Media Schemes
-* **PNG Image:** `data:image/png;base64,iVBORw0KGgoAAAANSUhEUg...`
-* **JPEG Image:** `data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEA...`
-* **SVG Vector:** `data:image/svg+xml;base64,PHN2ZyB4bWxucz0...`
-* **PDF Document:** `data:application/pdf;base64,JVBERi0xLjQK...`
+*** PNG Image:** `data:image/png;base64,iVBORw0KGgoAAAANSUhEUg...`
+*** JPEG Image:** `data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEA...`
+*** SVG Vector:** `data:image/svg+xml;base64,PHN2ZyB4bWxucz0...`
+*** PDF Document:** `data:application/pdf;base64,JVBERi0xLjQK...`
 
 ### Phishing Evasion via Inline Images
 In modern email clients (Outlook, Gmail), images loaded from external URLs (`<img src="https://phishing-site.com/logo.png">`) are often blocked by default to prevent user tracking.
@@ -33,7 +33,7 @@ HTML Smuggling is one of the most prevalent and effective delivery techniques us
 ### The Core Problem: Why Perimeter Defenses Fail
 Traditional Next-Generation Firewalls (NGFW), Web Proxies, and Secure Email Gateways (SEG) inspect files as they traverse the network perimeter. If an executable (`.exe`), disk image (`.iso`), or archive (`.zip`) crosses the wire, the gateway intercepts it.
 
-**In an HTML Smuggling attack, no executable ever crosses the network wire.**
+** In an HTML Smuggling attack, no executable ever crosses the network wire.**
 
 ```mermaid
 flowchart TD
@@ -81,8 +81,8 @@ Adversaries frequently employ **MIME type spoofing** within Data URIs to deceive
 
 $$\text{Claimed: } \mathbf{\text{data:image/png;base64,TVqQAAMAAAAEAAAA...}}$$
 
-* **The Header Claims:** An innocent PNG image (`image/png`).
-* **The Magic Bytes Reveal:** `4D 5A` (`TVq...`), which corresponds to a **Windows Portable Executable (PE)**!
+*** The Header Claims:** An innocent PNG image (`image/png`).
+*** The Magic Bytes Reveal:** `4D 5A` (`TVq...`), which corresponds to a **Windows Portable Executable (PE)**!
 
 ### How B64Lab Flags This Discrepancy
 B64Lab's forensic engine inspects both the claimed header and the first 8 decoded bytes. If a mismatch is detected, it raises an instant alert:
@@ -124,11 +124,11 @@ Beyond standard Base64, security analysts routinely encounter alternative radix 
 ```
 
 ### Why Base85 (Ascii85) Outperforms Base64 in Storage
-* **Base64:** Encodes 3 bytes into 4 characters (+33.3% overhead).
-* **Base85:** Encodes 4 bytes into 5 characters (+25.0% overhead).
+*** Base64:** Encodes 3 bytes into 4 characters (+33.3% overhead).
+*** Base85:** Encodes 4 bytes into 5 characters (+25.0% overhead).
 * Because $85^5 = 4,437,053,125 > 2^{32} = 4,294,967,296$, Base85 packs a full 32-bit integer into 5 ASCII characters. It is commonly found when analyzing malicious PDF exploits.
 
 ### Why Base32 Dominates DNS Tunneling (C2 Exfiltration)
 * DNS hostnames are **case-insensitive** (e.g., `A.evil.com` is identical to `a.evil.com`).
 * Standard Base64 relies on case sensitivity (`A` is value 0, `a` is value 26). Sending Base64 through DNS queries corrupts the data.
-* **Base32 uses only uppercase letters (`A-Z`) and digits (`2-7`)**, making it resilient across all DNS caching resolvers.
+*** Base32 uses only uppercase letters (`A-Z`) and digits (`2-7`)**, making it resilient across all DNS caching resolvers.

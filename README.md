@@ -21,32 +21,32 @@
 
 > **"Anyone should be able to sit down knowing nothing about Base64 and walk away understanding it at an assembly/bitwise and SOC-analyst level."**
 
-**B64Lab** is a zero-dependency, air-gapped cybersecurity simulation workbench, educational academy, and forensic triage engine. It bridges the gap between low-level computer science theory (octets, sextets, bit-shifting, Shannon entropy) and real-world adversary tradecraft (PowerShell UTF-16LE droppers, multi-stage nesting, magic-byte carving, custom alphabet evasion).
+** B64Lab** is a zero-dependency, air-gapped cybersecurity simulation workbench, educational academy, and forensic triage engine. It bridges the gap between low-level computer science theory (octets, sextets, bit-shifting, Shannon entropy) and real-world adversary tradecraft (PowerShell UTF-16LE droppers, multi-stage nesting, magic-byte carving, custom alphabet evasion).
 
 ---
 
-## 👶 Explain Like I'm 5: What Is This Project in Plain English?
+## Executive Overview: Plain English Breakdown
 
-If you are new to technology or cybersecurity, the technical words above can sound like another language. Here is what this project is actually about in simple everyday terms:
+If you are new to technology or cybersecurity, the technical specifications can sound intimidating. Here is what this project is actually about in simple everyday terms:
 
 ### The Problem
-* The internet was built to carry **plain text** (letters and numbers). If you try to send a raw computer file (like a picture, program, or PDF) across a text-only system, the raw computer code breaks or turns into corrupt glitchy garbage.
-* **Base64 is the "Waterproof Shipping Container" of the internet:** It translates any computer file into safe, ordinary letters and numbers (`A-Z`, `a-z`, `0-9`) so it can travel anywhere across the internet without breaking.
+* The internet was originally designed to carry **plain text** (letters and numbers). If you attempt to transmit raw computer files (such as executables, images, or compressed archives) across text-only channels, the data corrupts or breaks.
+* **Base64 is the "Waterproof Shipping Container" of the internet:** It translates any computer file into safe, ordinary letters and numbers (`A-Z`, `a-z`, `0-9`) so it can travel anywhere across the web without breaking.
 
 ### The Cybersecurity Cat-and-Mouse Game
-1. **The Hackers (Red Team):** Hackers love Base64 because they can wrap dangerous computer viruses inside this innocent-looking text. To a basic email filter or firewall, it just looks like random alphabet soup, allowing the virus to sneak right through the front door.
-2. **The Defenders (Blue Team / SOC Analysts):** Cybersecurity defenders have to examine thousands of system logs and network connections every day, spot these hidden chunks of text, unscramble them, and figure out what the hacker is trying to steal or destroy.
+1. **The Attackers (Red Team):** Adversaries abuse Base64 to conceal malicious code inside ordinary-looking text. To traditional perimeter filters, it resembles harmless text strings, allowing payloads to bypass inspection.
+2. **The Defenders (Blue Team / SOC Analysts):** Defensive analysts inspect thousands of log events and network streams daily, detect encoded payloads, de-obfuscate them, and determine the attacker's intent.
 
-### What B64Lab Does
-**B64Lab** is both a **training flight simulator** and an **industrial automated scanner**:
-* **The Flight Simulator (Academy & CTF Games):** It teaches students from scratch how hackers hide things, breaking down the exact mechanics step-by-step with interactive puzzle games (Capture The Flag challenges).
-* **The Industrial Scanner (Forensic Triage Engine):** For real-world companies, it scans massive 50 MB log files containing hundreds of thousands of events in seconds, automatically detects hidden attacks, and exports clean spreadsheets for security teams.
+### What B64Lab Delivers
+**B64Lab** functions as both an **educational laboratory** and an **automated operational utility**:
+* **The Educational Laboratory (Academy & CTF Labs):** Guides learners from first principles through binary bit manipulation, PowerShell nuances, and obfuscation techniques using interactive Capture The Flag challenges.
+* **The Operational Utility (Forensic Triage Engine):** Scans multi-megabyte log files in milliseconds, calculates Shannon entropy, identifies disguised executables, and exports structured CSV/JSON/SQLite databases for enterprise incident response.
 
-> 💡 **New to tech buzzwords?** Check out [**The Cyber Jargon Buster & Master Technical Index** (`docs/07_CYBER_JARGON_BUSTER_AND_DICTIONARY.md`)](docs/07_CYBER_JARGON_BUSTER_AND_DICTIONARY.md) for simple everyday definitions of every term.
+> **New to technical terminology?** Explore [**The Cyber Jargon Buster & Master Technical Index** (`docs/07_CYBER_JARGON_BUSTER_AND_DICTIONARY.md`)](docs/07_CYBER_JARGON_BUSTER_AND_DICTIONARY.md) for clear, non-technical definitions of every concept.
 
 ---
 
-## 🎯 Why B64Lab Was Built: The Mission & The Gap
+## Why B64Lab Was Built: The Mission & The Gap
 
 During cybersecurity certification training (Security+, CySA+, BTL1, OSCP), students repeatedly encounter Base64 in JWT tokens, phishing attachments, PowerShell `-EncodedCommand` invocations, and malware droppers. 
 
@@ -59,26 +59,26 @@ In enterprise operations, you encounter **50 MB noisy web logs**, **PowerShell U
 
 ### The Tool Landscape: What Existed vs. The Gap Filled
 
-* **GCHQ CyberChef:** The Swiss-Army knife of decoding, but it is a generic browser utility. It doesn't teach cybersecurity, offers zero offensive/defensive lab simulations, and won't automate log triage.
-* **Didier Stevens' `base64dump.py`:** A legendary CLI carver, but a barebones script with cryptic parameters and zero educational curriculum.
-* **Ciphey:** Automated heuristic decryption, but general-purpose cryptography with heavy third-party ML dependencies.
+*** GCHQ CyberChef:** The Swiss-Army knife of decoding, but it is a generic browser utility. It doesn't teach cybersecurity, offers zero offensive/defensive lab simulations, and won't automate log triage.
+*** Didier Stevens' `base64dump.py`:** A legendary CLI carver, but a barebones script with cryptic parameters and zero educational curriculum.
+*** Ciphey:** Automated heuristic decryption, but general-purpose cryptography with heavy third-party ML dependencies.
 
 | Feature / Capability | GCHQ CyberChef | Didier Stevens `base64dump.py` | Ciphey | **B64Lab** |
 | :--- | :---: | :---: | :---: | :---: |
-| **Air-Gapped CLI (No Browser Required)** | ❌ | ✅ | ✅ | **✅ (Pure Stdlib)** |
-| **Zero Third-Party Dependencies** | ❌ (Web) | ✅ (Python) | ❌ (Many wheels) | **✅ (100% Built-in)** |
-| **0-to-100 Interactive Academy** | ❌ | ❌ | ❌ | **✅ (Built-in Modules)** |
-| **Visual 24-Bit Bitwise Step-Through** | ❌ | ❌ | ❌ | **✅ (Interactive Tracer)** |
-| **PowerShell UTF-16LE Subsystem** | ❌ (Manual) | ❌ | ❌ | **✅ (Auto-Detect & Craft)** |
-| **Shannon Entropy Threat Meter** | Manual Recipe | ❌ | Partial | **✅ (Colorized Meter)** |
-| **Magic Byte Signature Identification** | Manual Recipe | ❌ | ❌ | **✅ (PE/ELF/PDF/ZIP/GZ)** |
-| **Recursive Multi-Stage Dropper Unpacker** | Manual Recipe | ❌ | Partial | **✅ (Recursive Engine)** |
-| **Adversary Payload Forge & Evasion** | ❌ | ❌ | ❌ | **✅ (Red Team Lane)** |
-| **Dynamic Anti-Cheat CTF Challenge Arena**| ❌ | ❌ | ❌ | **✅ (HMAC-SHA256)** |
+| **Air-Gapped CLI (No Browser Required)** |  |  |  | ** (Pure Stdlib)** |
+| **Zero Third-Party Dependencies** |  (Web) |  (Python) |  (Many wheels) | ** (100% Built-in)** |
+| **0-to-100 Interactive Academy** |  |  |  | ** (Built-in Modules)** |
+| **Visual 24-Bit Bitwise Step-Through** |  |  |  | ** (Interactive Tracer)** |
+| **PowerShell UTF-16LE Subsystem** |  (Manual) |  |  | ** (Auto-Detect & Craft)** |
+| **Shannon Entropy Threat Meter** | Manual Recipe |  | Partial | ** (Colorized Meter)** |
+| **Magic Byte Signature Identification** | Manual Recipe |  |  | ** (PE/ELF/PDF/ZIP/GZ)** |
+| **Recursive Multi-Stage Dropper Unpacker** | Manual Recipe |  | Partial | ** (Recursive Engine)** |
+| **Adversary Payload Forge & Evasion** |  |  |  | ** (Red Team Lane)** |
+| **Dynamic Anti-Cheat CTF Challenge Arena**|  |  |  | ** (HMAC-SHA256)** |
 
 ---
 
-## 🧠 Multi-Modal Learning Architecture
+## Multi-Modal Learning Architecture
 
 People learn through different sensory and cognitive pathways. B64Lab adapts to all four:
 1. **Kinesthetic Learners (Doing):** Launch the terminal CLI, forge custom payloads, carve raw logs, and solve 8 dynamic CTF labs.
@@ -88,20 +88,20 @@ People learn through different sensory and cognitive pathways. B64Lab adapts to 
 
 ---
 
-## ⚡ Key Architectural Highlights
+## Key Architectural Highlights
 
-* **Zero Dependencies (Air-Gapped Ready):** Built **100% on the Python Standard Library**. No `npm`, no `pip`, no external wheels. Runs cleanly on isolated forensic workstations, restricted jumpboxes, and air-gapped networks.
-* **Hand-Crafted ANSI/VT100 Terminal UI:** Nostalgic 80s IBM/BBS terminal experience with custom Unicode box-drawing, canonical hex dumping, and dynamic theme switching.
-* **Dynamic Simulation Lanes:**
-  * 🟡 **Amber CRT (Default):** 80s Cyberpunk warm phosphor for Theory, Academy, and CTF Challenges.
-  * 🔵 **Neon Ice Blue (Defensive Lane):** Cold, analytical forensic interface for artifact carving, entropy scoring, and magic-byte hunting.
-  * 🔴 **Tactical Crimson (Offensive Lane):** Adversary simulation interface for crafting UTF-16LE scripts, multi-stage droppers, and custom alphabet ciphers.
-* **0-to-100 Educational Depth:** Interactive visual lessons breaking down binary bit manipulation step-by-step.
-* **Built-in CTF Arena:** 8 progressive offline forensic de-obfuscation challenges with automated flag verification.
+*** Zero Dependencies (Air-Gapped Ready):** Built **100% on the Python Standard Library**. No `npm`, no `pip`, no external wheels. Runs cleanly on isolated forensic workstations, restricted jumpboxes, and air-gapped networks.
+*** Hand-Crafted ANSI/VT100 Terminal UI:** Nostalgic 80s IBM/BBS terminal experience with custom Unicode box-drawing, canonical hex dumping, and dynamic theme switching.
+*** Dynamic Simulation Lanes:**
+  *  **Amber CRT (Default):** 80s Cyberpunk warm phosphor for Theory, Academy, and CTF Challenges.
+  *  **Neon Ice Blue (Defensive Lane):** Cold, analytical forensic interface for artifact carving, entropy scoring, and magic-byte hunting.
+  *  **Tactical Crimson (Offensive Lane):** Adversary simulation interface for crafting UTF-16LE scripts, multi-stage droppers, and custom alphabet ciphers.
+*** 0-to-100 Educational Depth:** Interactive visual lessons breaking down binary bit manipulation step-by-step.
+*** Built-in CTF Arena:** 8 progressive offline forensic de-obfuscation challenges with automated flag verification.
 
 ---
 
-## 🚀 Quickstart & Setup
+## Quickstart & Setup
 
 Clone the repository and run—no installation, compilers, or third-party packages required:
 
@@ -114,7 +114,7 @@ cd B64LAB
 python b64lab.py
 ```
 
-> 📖 **Need OS-specific guidance, air-gapped jumpbox instructions, or Docker one-liners?**  
+>  **Need OS-specific guidance, air-gapped jumpbox instructions, or Docker one-liners?**  
 > See the complete [**SETUP.md**](SETUP.md) deployment guide.
 
 You can also run B64Lab directly as a Python module:
@@ -157,7 +157,7 @@ cat /var/log/nginx/access.log | python b64lab.py carve - --format csv > live_tri
 
 ---
 
-## 🏛️ Project Architecture
+## ️ Project Architecture
 
 ```
 B64Lab/
@@ -206,7 +206,7 @@ B64Lab/
 
 ---
 
-## 🔬 Deep-Dive: Cybersecurity Theory & Mechanics
+## Deep-Dive: Cybersecurity Theory & Mechanics
 
 ### 1. The 24-bit Bitwise Transformation
 Base64 expands binary data by **33.3%** because computers group bytes into 8-bit octets, whereas Base64 groups them into 6-bit sextets ($2^6 = 64$ printable symbols):
@@ -225,17 +225,17 @@ Lookup Char  :    'T'        'W'        'F'        'u'   ==> "TWFu"
 
 ### 2. Why '=' and '==' Padding Exist (The Math)
 When input bytes do not divide cleanly by 3:
-* **Remainder = 1 byte (8 bits):** 4 zero bits padded $\rightarrow$ 2 sextets $\rightarrow$ Appends **`==`** (e.g. `'A'` $\rightarrow$ `'QQ=='`).
-* **Remainder = 2 bytes (16 bits):** 2 zero bits padded $\rightarrow$ 3 sextets $\rightarrow$ Appends **`=`** (e.g. `'AB'` $\rightarrow$ `'QUI='`).
-* **Remainder = 0 bytes (24 bits):** Clean mapping $\rightarrow$ **No padding required**.
+*** Remainder = 1 byte (8 bits):** 4 zero bits padded $\rightarrow$ 2 sextets $\rightarrow$ Appends **`==`** (e.g. `'A'` $\rightarrow$ `'QQ=='`).
+*** Remainder = 2 bytes (16 bits):** 2 zero bits padded $\rightarrow$ 3 sextets $\rightarrow$ Appends **`=`** (e.g. `'AB'` $\rightarrow$ `'QUI='`).
+*** Remainder = 0 bytes (24 bits):** Clean mapping $\rightarrow$ **No padding required**.
 
 > **Adversary Note:** Threat actors frequently strip `=` padding to break naive IDS regex signatures that search exclusively for `^[A-Za-z0-9+/]{4}*={0,2}$`. B64Lab's carver automatically detects and normalizes unpadded sequences.
 
 ### 3. The PowerShell UTF-16LE Architecture Gotcha
 Windows PowerShell's `-EncodedCommand` switch requires **UTF-16LE** (Little Endian) bytes:
 * Command: `whoami`
-* UTF-8 Bytes: `77 68 6f 61 6d 69` $\rightarrow$ Base64: `d2hvYW1p` ❌ *(Fails in PowerShell)*
-* UTF-16LE Bytes: `77 00 68 00 6f 00 61 00 6d 00 69 00` $\rightarrow$ Base64: `dwBoAG8AYQBtAGkA` ✅ *(Executes)*
+* UTF-8 Bytes: `77 68 6f 61 6d 69` $\rightarrow$ Base64: `d2hvYW1p`  *(Fails in PowerShell)*
+* UTF-16LE Bytes: `77 00 68 00 6f 00 61 00 6d 00 69 00` $\rightarrow$ Base64: `dwBoAG8AYQBtAGkA`  *(Executes)*
 
 ### 4. Shannon Entropy as an Anomaly Detection Metric
 Shannon Entropy measures randomness on a scale from $0.00$ to $8.00$:
@@ -251,37 +251,37 @@ $$H(X) = -\sum_{i=1}^{n} P(x_i) \log_2 P(x_i)$$
 
 ---
 
-## 🎯 Built-In CTF Challenges (Anti-Cheat Powered)
+## Built-In CTF Challenges (Anti-Cheat Powered)
 
 B64Lab features a **dynamic HMAC-SHA256 anti-cheat challenge engine**. **Zero static flags exist in the source code.** Every challenge dynamically synthesizes unique session flags and payloads derived from a local cryptographic salt. Flags cannot be looked up on Google, copied from friends, or found by grepping the repository!
 
-* **Level 1 (First Contact):** Standard token extraction from HTTP headers.
-* **Level 2 (The Broken Pad):** Repairing stripped padding on an evasion payload.
-* **Level 3 (The Ghost Shell):** De-obfuscating PowerShell UTF-16LE Windows Event logs.
-* **Level 4 (Needle in the Haystack):** Carving Base64 payloads out of raw web access logs.
-* **Level 5 (Magic Masquerade):** Identifying disguised executables via magic bytes (`MZ`).
-* **Level 6 (The Russian Doll):** Multi-stage unpacking (Base64 $\rightarrow$ GZIP $\rightarrow$ Payload).
-* **Level 7 (The Shifted Table):** Reversing a custom threat-actor alphabet substitution cipher.
-* **Level 8 (Incident Response Final):** Triage an active C2 DNS-tunneling beacon.
+*** Level 1 (First Contact):** Standard token extraction from HTTP headers.
+*** Level 2 (The Broken Pad):** Repairing stripped padding on an evasion payload.
+*** Level 3 (The Ghost Shell):** De-obfuscating PowerShell UTF-16LE Windows Event logs.
+*** Level 4 (Needle in the Haystack):** Carving Base64 payloads out of raw web access logs.
+*** Level 5 (Magic Masquerade):** Identifying disguised executables via magic bytes (`MZ`).
+*** Level 6 (The Russian Doll):** Multi-stage unpacking (Base64 $\rightarrow$ GZIP $\rightarrow$ Payload).
+*** Level 7 (The Shifted Table):** Reversing a custom threat-actor alphabet substitution cipher.
+*** Level 8 (Incident Response Final):** Triage an active C2 DNS-tunneling beacon.
 
 ---
 
-## 📚 Comprehensive Documentation Suite & Educational Lab
+## Comprehensive Documentation Suite & Educational Lab
 
 Explore the complete visual curriculum, cheat sheets, and architectural guides in `docs/`:
-* 🧭 [**Start Here: The 0-to-100 Curriculum Roadmap** (`docs/00_START_HERE_CURRICULUM.md`)](docs/00_START_HERE_CURRICULUM.md) — Ground-floor guide covering bits, bytes, and step-by-step guidance on how to maximize your learning.
-* 📖 [**The Cyber Jargon Buster & Master Technical Index** (`docs/07_CYBER_JARGON_BUSTER_AND_DICTIONARY.md`)](docs/07_CYBER_JARGON_BUSTER_AND_DICTIONARY.md) — Plain English (ELI5) definitions of every technical term, acronym, and buzzword from Bit to SIEM.
-* 📊 [**Complete Schema Cheat Sheet & Visualizer** (`docs/05_BASE64_CHEAT_SHEET_AND_VISUALIZER.md`)](docs/05_BASE64_CHEAT_SHEET_AND_VISUALIZER.md) — The full 64-character lookup grid (0–63), worked `"Hello"` step-by-step encoding/decoding, and padding visualizer.
-* 🎯 [**The Mission & The Gap** (`docs/00_WHY_B64LAB_EXISTS.md`)](docs/00_WHY_B64LAB_EXISTS.md) — The student origin story, competitive landscape analysis (CyberChef, base64dump, Ciphey), and multi-modal pedagogy.
-* ⚙️ [**Module 1: Low-Level Bitwise Architecture** (`docs/01_BITWISE_ARCHITECTURE.md`)](docs/01_BITWISE_ARCHITECTURE.md) — 24-bit shift buffers, octet-to-sextet regrouping, CPU bit-shifts, and mathematical padding proofs.
-* 🥷 [**Module 2: Adversary Tradecraft & Malware Obfuscation** (`docs/02_MALWARE_OBFUSCATION.md`)](docs/02_MALWARE_OBFUSCATION.md) — PowerShell UTF-16LE vs. UTF-8 sequence diagrams, multi-stage dropper pipelines, and APT custom alphabets.
-* 🛡️ [**Module 3: Defensive Triage & Forensic Carving** (`docs/03_SOC_TRIAGE_FORENSICS.md`)](docs/03_SOC_TRIAGE_FORENSICS.md) — Shannon Entropy mathematical formulas, magic byte carving catalogs, and SIEM/EDR log hunting protocols.
-* 🎓 [**Module 4: Study Pathways & Curated Resources** (`docs/04_LEARNING_PATHWAYS_AND_RESOURCES.md`)](docs/04_LEARNING_PATHWAYS_AND_RESOURCES.md) — Curated video lectures (Computerphile, John Hammond, LiveOverflow), canonical RFC standards, and certification alignment roadmaps (Security+, CySA+, BTL1, OSCP).
-* 🌐 [**Module 5: Data URIs, HTML Smuggling & Web Exploitation** (`docs/06_DATA_URIS_HTML_SMUGGLING_AND_VARIANTS.md`)](docs/06_DATA_URIS_HTML_SMUGGLING_AND_VARIANTS.md) — RFC 2397 Data URIs, HTML Smuggling (T1027.006), MIME spoofing detection, and Java/ViewState deserialization gadgets.
+* [**Start Here: The 0-to-100 Curriculum Roadmap** (`docs/00_START_HERE_CURRICULUM.md`)](docs/00_START_HERE_CURRICULUM.md) — Ground-floor guide covering bits, bytes, and step-by-step guidance on how to maximize your learning.
+* [**The Cyber Jargon Buster & Master Technical Index** (`docs/07_CYBER_JARGON_BUSTER_AND_DICTIONARY.md`)](docs/07_CYBER_JARGON_BUSTER_AND_DICTIONARY.md) — Plain English (ELI5) definitions of every technical term, acronym, and buzzword from Bit to SIEM.
+* [**Complete Schema Cheat Sheet & Visualizer** (`docs/05_BASE64_CHEAT_SHEET_AND_VISUALIZER.md`)](docs/05_BASE64_CHEAT_SHEET_AND_VISUALIZER.md) — The full 64-character lookup grid (0–63), worked `"Hello"` step-by-step encoding/decoding, and padding visualizer.
+* [**The Mission & The Gap** (`docs/00_WHY_B64LAB_EXISTS.md`)](docs/00_WHY_B64LAB_EXISTS.md) — The student origin story, competitive landscape analysis (CyberChef, base64dump, Ciphey), and multi-modal pedagogy.
+* ️ [**Module 1: Low-Level Bitwise Architecture** (`docs/01_BITWISE_ARCHITECTURE.md`)](docs/01_BITWISE_ARCHITECTURE.md) — 24-bit shift buffers, octet-to-sextet regrouping, CPU bit-shifts, and mathematical padding proofs.
+* [**Module 2: Adversary Tradecraft & Malware Obfuscation** (`docs/02_MALWARE_OBFUSCATION.md`)](docs/02_MALWARE_OBFUSCATION.md) — PowerShell UTF-16LE vs. UTF-8 sequence diagrams, multi-stage dropper pipelines, and APT custom alphabets.
+* ️ [**Module 3: Defensive Triage & Forensic Carving** (`docs/03_SOC_TRIAGE_FORENSICS.md`)](docs/03_SOC_TRIAGE_FORENSICS.md) — Shannon Entropy mathematical formulas, magic byte carving catalogs, and SIEM/EDR log hunting protocols.
+* [**Module 4: Study Pathways & Curated Resources** (`docs/04_LEARNING_PATHWAYS_AND_RESOURCES.md`)](docs/04_LEARNING_PATHWAYS_AND_RESOURCES.md) — Curated video lectures (Computerphile, John Hammond, LiveOverflow), canonical RFC standards, and certification alignment roadmaps (Security+, CySA+, BTL1, OSCP).
+* [**Module 5: Data URIs, HTML Smuggling & Web Exploitation** (`docs/06_DATA_URIS_HTML_SMUGGLING_AND_VARIANTS.md`)](docs/06_DATA_URIS_HTML_SMUGGLING_AND_VARIANTS.md) — RFC 2397 Data URIs, HTML Smuggling (T1027.006), MIME spoofing detection, and Java/ViewState deserialization gadgets.
 
 ---
 
-## 🛡️ MITRE ATT&CK Mapping
+## ️ MITRE ATT&CK Mapping
 
 | ID | Technique Name | Tactic | B64Lab Simulation / Detection |
 | :--- | :--- | :--- | :--- |
@@ -293,7 +293,7 @@ Explore the complete visual curriculum, cheat sheets, and architectural guides i
 
 ---
 
-## 🧪 Running Automated Tests
+## Running Automated Tests
 
 Run the full automated test suite using Python's built-in `unittest` runner:
 
@@ -305,11 +305,11 @@ All tests pass out of the box with zero external dependencies.
 
 ---
 
-## 📜 License, Governance & Legal
+## License, Governance & Legal
 
 This project is licensed under the [MIT License](LICENSE) — Copyright (c) 2026 **Veruthia Consulting LLC**.
 
-* ⚖️ **Legal Disclaimer & Limitation of Liability:** See [DISCLAIMER.md](DISCLAIMER.md)
-* 🛡️ **Security Policy & Vulnerability Reporting:** See [SECURITY.md](SECURITY.md)
-* 🏛️ **Project Governance & Contribution Guidelines:** See [CONTRIBUTING.md](CONTRIBUTING.md)
-* 📖 **Installation & Air-Gapped Setup:** See [SETUP.md](SETUP.md)
+* ️ **Legal Disclaimer & Limitation of Liability:** See [DISCLAIMER.md](DISCLAIMER.md)
+* ️ **Security Policy & Vulnerability Reporting:** See [SECURITY.md](SECURITY.md)
+* ️ **Project Governance & Contribution Guidelines:** See [CONTRIBUTING.md](CONTRIBUTING.md)
+* **Installation & Air-Gapped Setup:** See [SETUP.md](SETUP.md)

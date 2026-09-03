@@ -14,7 +14,7 @@ When raw binary streams pass through text-only transmission channels:
 2. Control characters (`0x0D`, `0x0A`, `0x1B`, `0x04`) trigger line-breaks, EOF markers, or escape sequences.
 3. High-order bits (`> 0x7F`) are stripped or distorted by 7-bit gateways.
 
-**RFC 4648 Base64** converts arbitrary 8-bit binary octets into a strictly printable 64-character subset of ASCII.
+** RFC 4648 Base64** converts arbitrary 8-bit binary octets into a strictly printable 64-character subset of ASCII.
 
 ---
 
@@ -106,9 +106,9 @@ Threat actors frequently strip trailing `=` characters:
 Understanding how Base64 standards evolved is essential for identifying legacy vulnerabilities and protocol quirks:
 
 ### Deprecated Specifications vs. Active Standards
-* **RFC 1421 (1993) & RFC 1521 (1993) [OBSOLETE]:** Early Privacy Enhanced Mail (PEM) and MIME specifications. They allowed inconsistent line-break handling and permitted non-alphabet characters to be ignored silently—a behavior that modern malware still exploits to hide within whitespace.
-* **RFC 3548 (2003) [OBSOLETE]:** Replaced by **RFC 4648 (2006)**, which is the current, authoritative IETF standard governing all Base64, Base64URL, and Base32 implementations.
-* **RFC 8725 (2020) [ACTIVE BCP]:** *JSON Web Token Best Current Practices*. Specifically warns against accepting unvalidated Base64URL claims before signature verification, mitigating parser differentials and signature stripping.
+*** RFC 1421 (1993) & RFC 1521 (1993) [OBSOLETE]:** Early Privacy Enhanced Mail (PEM) and MIME specifications. They allowed inconsistent line-break handling and permitted non-alphabet characters to be ignored silently—a behavior that modern malware still exploits to hide within whitespace.
+*** RFC 3548 (2003) [OBSOLETE]:** Replaced by **RFC 4648 (2006)**, which is the current, authoritative IETF standard governing all Base64, Base64URL, and Base32 implementations.
+*** RFC 8725 (2020) [ACTIVE BCP]:** *JSON Web Token Best Current Practices*. Specifically warns against accepting unvalidated Base64URL claims before signature verification, mitigating parser differentials and signature stripping.
 
 ### PowerShell NT UTF-16LE: Windows 5.1 vs. Modern Core 7+
 A common point of confusion for security analysts:
