@@ -54,9 +54,9 @@ class MitreReference:
                 "Framework mapping of adversary tactics, techniques, and procedures (TTPs)"
             )
 
-            headers = ["TECHNIQUE ID", "TECHNIQUE NAME", "TACTIC", "MITRE ATT&CK URL"]
+            headers = ["TECHNIQUE ID", "TECHNIQUE NAME", "TACTIC"]
             rows = [
-                [t["id"], t["name"], t["tactic"], f"https://attack.mitre.org/techniques/{t['id'].replace('.', '/')}/"]
+                [t["id"], t["name"], t["tactic"]]
                 for t in MITRE_TECHNIQUES
             ]
             UIComponents.table(headers, rows)

@@ -23,12 +23,12 @@ class RFCLesson:
 
             print("  RFC 4648 is the official IETF standard defining binary-to-text encodings.\n")
 
-            headers = ["STANDARD", "CHUNK SIZE", "ALPHABET CHARS", "PADDING CHAR", "PRIMARY USE CASE"]
+            headers = ["STANDARD", "CHUNK", "ALPHABET", "PADDING", "PRIMARY USE CASE"]
             rows = [
-                ["Base64", "6 bits (64)", "A-Z, a-z, 0-9, +, /", "=", "Email (MIME), Certs, General Binary"],
-                ["Base64URL", "6 bits (64)", "A-Z, a-z, 0-9, -, _", "Optional", "JWT Tokens, URL Query Params, Filenames"],
-                ["Base32", "5 bits (32)", "A-Z, 2-7", "=", "2FA / TOTP Keys, DNS Exfiltration"],
-                ["Base16 (Hex)", "4 bits (16)", "0-9, A-F", "None", "Byte inspection, Hashes (MD5, SHA256)"],
+                ["Base64", "6-bit", "A-Z, a-z, 0-9, +, /", "Required (=)", "MIME, Certs, PEM"],
+                ["Base64URL", "6-bit", "A-Z, a-z, 0-9, -, _", "Optional", "JWTs, URLs, Parameters"],
+                ["Base32", "5-bit", "A-Z, 2-7", "Required (=)", "TOTP / 2FA, DNS Tunnels"],
+                ["Base16 (Hex)", "4-bit", "0-9, A-F", "None", "Hashes (MD5, SHA), Hex"],
             ]
             UIComponents.table(headers, rows)
 

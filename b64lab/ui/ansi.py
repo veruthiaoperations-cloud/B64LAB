@@ -103,15 +103,22 @@ class Terminal:
         cls._initialized = True
 
     @staticmethod
-    def get_size(default_width: int = 84, default_height: int = 24) -> Tuple[int, int]:
+    def get_size(default_width: int = 80, default_height: int = 24) -> Tuple[int, int]:
         """Returns the current (width, height) of the terminal window."""
         try:
             size = os.get_terminal_size()
-            width = max(80, min(120, size.columns))
-            height = max(24, size.lines)
-            return width, height
-        except OSError:
+            return max(32, size.columns), max(10, size.lines)
+        except (OSError, ValueError):
             return default_width, default_height
+
+    @staticmethod
+    def get_width(default: int = 80) -> int:
+        """Returns the current visible column width of the terminal window."""
+        try:
+            size = os.get_terminal_size()
+            return max(32, size.columns)
+        except (OSError, ValueError):
+            return default
 
     @staticmethod
     def clear() -> None:

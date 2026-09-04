@@ -389,6 +389,53 @@ class TestUIComponents(unittest.TestCase):
                     widths = [visible_len(l) for l in lines]
                     self.assertEqual(len(set(widths)), 1, f"Box lines must be uniformly wide: {widths} (style={style}, title={title})")
 
+    def test_glossary_term_card_wrapping(self):
+        import io, contextlib
+        from b64lab.academy.glossary import GLOSSARY_DATA
+        for key, item in GLOSSARY_DATA.items():
+            lines = [
+                "DEFINITION:",
+                f"  {item['definition']}",
+                "",
+                "CYBERSECURITY CONTEXT & OPERATIONAL RELEVANCE:",
+                f"  {item['context']}",
+            ]
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                UIComponents.box(lines, title="TERM CARD", style="rounded", width=80)
+            rendered = buf.getvalue().splitlines()
+            widths = [visible_len(l) for l in rendered]
+            self.assertEqual(len(set(widths)), 1, f"All lines in glossary term {key} box must be uniform: {widths}")
+            self.assertEqual(widths[0], 80, f"Glossary box width must be exactly 80 for {key}")
+
+    def test_responsive_custom_widths(self):
+        import io, contextlib
+        long_text = [
+            "This is a long line that tests wrapping at various terminal dimensions without breaking box borders.",
+            "  Indented item with crucial cybersecurity information and IOC hashes: 44d88612fea8a8f36de82e1278abb02f",
+        ]
+        for w in (50, 60, 70, 80, 100):
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                UIComponents.box(long_text, title=f"WIDTH {w}", style="double", width=w)
+            rendered = buf.getvalue().splitlines()
+            widths = [visible_len(l) for l in rendered]
+            self.assertEqual(len(set(widths)), 1, f"Lines must be uniform at width {w}")
+            self.assertEqual(widths[0], w, f"Expected box width {w}, got {widths[0]}")
+
+    def test_responsive_table_scaling(self):
+        import io, contextlib
+        headers = ["COL1", "COL2", "COL3", "COL4"]
+        rows = [["Value A", "Value B is quite long", "Value C", "Value D is also very long"]]
+        for target_w in (60, 70, 80):
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                UIComponents.table(headers, rows, max_width=target_w)
+            rendered = buf.getvalue().splitlines()
+            widths = [visible_len(l) for l in rendered]
+            self.assertEqual(len(set(widths)), 1, f"All table lines must be uniform at width {target_w}")
+            self.assertLessEqual(widths[0], target_w, f"Table width {widths[0]} must not exceed target {target_w}")
+
 
 if __name__ == "__main__":
     unittest.main()
