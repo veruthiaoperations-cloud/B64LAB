@@ -293,6 +293,24 @@ Explore the complete visual curriculum, cheat sheets, and architectural guides i
 
 ---
 
+## Antivirus & EDR False Positive Notice
+
+Because **B64Lab** is a specialized cybersecurity laboratory and digital forensics triage engine, it contains educational artifacts and simulation templates demonstrating real-world attacker tradecraft (such as PowerShell `-EncodedCommand` UTF-16LE payloads, recursive GZIP stagers, and Base64-embedded web logs).
+
+### 100% Benign & Air-Gapped Assurance
+* **Zero External Dependencies:** Built strictly with Python 3's standard library (`base64`, `gzip`, `zlib`, `re`, `sqlite3`, `argparse`). Zero NPM packages, zero PyPI packages, and zero compiled `.dll`, `.exe`, or `.so` binary blobs.
+* **Zero Outbound Connections:** B64Lab opens zero network sockets, beacons nowhere, and makes zero telemetry calls.
+* **Zero Active Exploits or Shellcode:** All simulations execute harmless diagnostic strings (e.g. `Write-Host`) in memory for static inspection and forensic triage.
+
+> [!NOTE]
+> Commercial antivirus engines (Bitdefender, Windows Defender, CrowdStrike) use static heuristics that search for strings like `powershell.exe -EncodedCommand` or fileless memory decompression stubs. All sample files in `samples/` are strictly defanged static text artifacts. You can safely add a folder exclusion, or run B64Lab inside an isolated rootless container:
+> ```bash
+> docker run -it --rm -v ${PWD}:/lab -w /lab python:3.12-alpine python b64lab.py
+> ```
+> For detailed technical verification, see [**SECURITY.md**](SECURITY.md).
+
+---
+
 ## Running Automated Tests
 
 Run the full automated test suite using Python's built-in `unittest` runner:

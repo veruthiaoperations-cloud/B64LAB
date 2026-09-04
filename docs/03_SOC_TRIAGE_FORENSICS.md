@@ -58,12 +58,12 @@ Attackers inject Base64 commands into HTTP query parameters, headers, or cookies
 
 ```
 # Raw Incident Log Line:
-192.168.1.105 - - [03/Sep/2026:14:22:01] "POST /api/sync?token=PD9waHAgc3lzdGVtKCRfR0VUWydjbWQnXSk7ID8+ HTTP/1.1" 200 512
+192.168.1.105 - - [03/Sep/2026:14:22:01] "POST /api/sync?token=PD9waHAgLyogQjY0TGFiIEF1ZGl0ICovIGVjaG8gJ1NpbXVsYXRlZF9XZWJzaGVsbF9Qcm9iZSc7ID8+ HTTP/1.1" 200 512
 
 # Carving Process:
-1. Regex match token: 'PD9waHAgc3lzdGVtKCRfR0VUWydjbWQnXSk7ID8+'
+1. Regex match token: 'PD9waHAgLyogQjY0TGFiIEF1ZGl0ICovIGVjaG8gJ1NpbXVsYXRlZF9XZWJzaGVsbF9Qcm9iZSc7ID8+'
 2. Shannon Entropy: 5.48 (Matches Base64 cluster)
-3. Decoded: '<?php system($_GET['cmd']); ?>'
+3. Decoded: "<?php /* B64Lab Audit */ echo 'Simulated_Webshell_Probe'; ?>"
 4. Incident Classification: Webshell Injection (T1505.003)
 ```
 

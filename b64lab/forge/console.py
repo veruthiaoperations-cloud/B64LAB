@@ -193,7 +193,7 @@ class ForgeConsole:
 
         if choice == "1":
             import base64
-            payload = base64.b64encode(b"<?php system($_GET['cmd']); ?>").decode("ascii")
+            payload = base64.b64encode(b"<?php /* B64Lab Simulation */ echo 'Diagnostic_Command_Probe'; ?>").decode("ascii")
             log_content = MockLogGenerator.generate_web_access_log(payload, total_lines=40)
             file_path = os.path.join(out_dir, "synthetic_access.log")
             with open(file_path, "w", encoding="utf-8") as f:
@@ -202,7 +202,7 @@ class ForgeConsole:
             print(f"  [+] Saved to: {file_path}")
             print(f"  [!] Switch to the DEFENSIVE TRIAGE LANE to carve and hunt this log!")
         else:
-            ps_craft = PowerShellForge.craft("Get-Process; whoami; net user")
+            ps_craft = PowerShellForge.craft("Write-Host '[B64Lab Diagnostic] Telemetry Active' -ForegroundColor Green")
             log_content = MockLogGenerator.generate_powershell_event_log(ps_craft["b64_valid_utf16le"])
             file_path = os.path.join(out_dir, "synthetic_powershell_event.xml")
             with open(file_path, "w", encoding="utf-8") as f:
