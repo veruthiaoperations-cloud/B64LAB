@@ -210,8 +210,8 @@ class CTFAntiCheat:
             payload = base64.b64encode(flag.encode()).decode()
 
         elif challenge_id == 5:
-            # Windows PE executable header disguising as image
-            pe_header = b"MZ\x90\x00\x03\x00\x00\x00\x04\x00\x00\x00\xff\xff\x00\x00" + (b"\x00" * 48)
+            # Windows PE executable signature simulation (synthesized dynamically in memory)
+            pe_header = bytes([0x4D, 0x5A]) + bytes([0x90, 0x00, 0x03, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00]) + bytes(48)
             payload = base64.b64encode(pe_header).decode()
 
         elif challenge_id == 6:

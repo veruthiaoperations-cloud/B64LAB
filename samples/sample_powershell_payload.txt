@@ -1,0 +1,14 @@
+# ==============================================================================
+# B64Lab Forensic Sample: Benign Obfuscation Telemetry (Static Analysis Only)
+# Purpose: Educational test artifact for base64 decode and entropy triage exercises
+# ==============================================================================
+
+<#
+  Incident Triage Practice Scenario:
+  This benign sample simulates an administrative script encoded in UTF-16LE Base64.
+  Decoded Content: Write-Host '[B64Lab] Sample Diagnostic Script' -ForegroundColor Cyan
+#>
+
+$EncodedPayload = "VwByAGkAdABlAC0ASABvAHMAdAAgACcAWwBCAAAANgA0AEwAYQBiAF0AIABTAGEAbQBwAGwAZQAgAFMAYwByAGkAcAB0ACAARQB4AGUAYwB1AHQAZQBkACEAJwAgAC0ARgBvAHIAZQBnAHIAbwB1AG4AZABDAG8AbABvAHIAIABDAHkAYQBuAA=="
+
+# Use B64Lab Triage or Workbench [5] to inspect and decode the string above safely.

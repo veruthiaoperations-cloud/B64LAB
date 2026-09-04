@@ -66,7 +66,7 @@ class MockLogGenerator:
             f"  <EventData>\n"
             f"    <Data Name='MessageNumber'>1</Data>\n"
             f"    <Data Name='MessageTotal'>1</Data>\n"
-            f"    <Data Name='ScriptBlockText'>powershell.exe -NoProfile -ExecutionPolicy Bypass -EncodedCommand {encoded_command_b64}</Data>\n"
+            f"    <Data Name='ScriptBlockText'>powershell.exe -NoProfile -NonInteractive -EncodedCommand {encoded_command_b64}</Data>\n"
             f"  </EventData>\n"
             f"</Event>"
         )

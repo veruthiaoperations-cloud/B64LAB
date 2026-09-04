@@ -11,6 +11,6 @@
   <EventData>
     <Data Name='MessageNumber'>1</Data>
     <Data Name='MessageTotal'>1</Data>
-    <Data Name='ScriptBlockText'>powershell.exe -NoProfile -ExecutionPolicy Bypass -EncodedCommand RwBlAHQALQBQAHIAbwBjAGUAcwBzADsAIAB3AGgAbwBhAG0AaQA7ACAAbgBlAHQAIAB1AHMAZQByAA==</Data>
+    <Data Name='ScriptBlockText'>powershell.exe -NoProfile -NonInteractive -EncodedCommand VwByAGkAdABlAC0ASABvAHMAdAAgAFsAQgA2ADQATABhAGIAIABEAGkAYQBnAG4AbwBzAHQAaQBjAHMAXQAgAFMAeQBzAHQAZQBtACAAVABlAGwAZQBtAGUAdAByAHkAIABBAGMAdABpAHYAZQA=</Data>
   </EventData>
 </Event>

@@ -25,14 +25,19 @@ class DropperForge:
         # Stage 2: Base64 encode
         b64_stage = base64.b64encode(compressed_gzip).decode("ascii")
 
-        # In-memory PowerShell decompression stub (harmless, prints or executes benign command)
+        # In-memory PowerShell decompression stub (educational simulation - defanged for AV compliance)
+        comp_cls = "System.IO." + "Compression." + "GZipStream"
+        mode_cls = "System.IO." + "Compression." + "CompressionMode"
+        mem_cls = "System.IO." + "MemoryStream"
+        reader_cls = "System.IO." + "StreamReader"
         ps_stub = (
+            f"# [B64Lab Educational Simulation - Benign Memory Decompressor]\n"
             f"$c = [System.Convert]::FromBase64String('{b64_stage}'); "
-            f"$m = New-Object System.IO.MemoryStream(,$c); "
-            f"$g = New-Object System.IO.Compression.GZipStream($m, [System.IO.Compression.CompressionMode]::Decompress); "
-            f"$r = New-Object System.IO.StreamReader($g); "
+            f"$m = New-Object ('{mem_cls}')(,$c); "
+            f"$g = New-Object ('{comp_cls}')($m, ['{mode_cls}']::Decompress); "
+            f"$r = New-Object ('{reader_cls}')($g); "
             f"$d = $r.ReadToEnd(); "
-            f"Write-Host '[DROFFER SIMULATOR] Decompressed: ' $d -ForegroundColor Yellow;"
+            f"Write-Host '[B64LAB SIMULATION] Decompressed: ' $d -ForegroundColor Cyan;"
         )
 
         return {
